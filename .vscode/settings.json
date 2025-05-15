@@ -1,0 +1,5 @@
+{
+    "livePreview.openPreviewTarget": "External Browser",
+    "liveServer.settings.port": 3002,
+    "liveServer.settings.host": "0.0.0.0"
+}

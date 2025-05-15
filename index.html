@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Offering</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="left-side">
+    <h2 class="choose-text">Select a data offering to proceed</h2>
+    <div class="coin-container">
+      <img src="assets/coin1.svg" class="coin" data-button="A" tabindex="0" />
+      <img src="assets/coin2.svg" class="coin" data-button="B" tabindex="0" />
+      <img src="assets/coin3.svg" class="coin" data-button="C" tabindex="0" />
+    </div>
+    <button id="claim-button" style="display: none;">I Claim</button>
+  </div>
+
+  <div class="right-side">
+    <video id="video" autoplay muted loop width="400" playsinline>
+      <source src="assets/screensaver.mp4" type="video/mp4">
+      Dein Browser unterstützt das Video-Tag nicht.
+    </video>
+    <div id="video-glow" class="video-glow"></div>
+  </div>
+
+  <audio id="coin-sound" src="assets/coin.mp3" preload="auto"></audio>
+  <audio id="screensaver-audio" src="assets/audioA1.mp3" loop preload="auto"></audio>
+  <audio id="click-sound" src="assets/click.mp3" preload="auto"></audio>
+  <audio id="claim-audio" src="assets/claim.mp3" preload="auto"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
