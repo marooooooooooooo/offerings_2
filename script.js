@@ -5,6 +5,8 @@ const claimButton = document.getElementById('claim-button');
 const claimAudio = document.getElementById('claim-audio');
 const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
+const myClientId = Math.random().toString(36).substr(2, 9);
+const isIpad = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 // Verbindung zum WebSocket-Server herstellen
 const ws = new WebSocket('wss://blessed-socket-server-f08da3206592.herokuapp.com:443');
@@ -30,19 +32,18 @@ ws.onmessage = (event) => {
       document.getElementById('display').innerText = data.payload;
     }
     if (data.type === 'coin') {
-      // Alle Münzen ausblenden außer der gewählten
+
       coins.forEach(c => {
         if (c.getAttribute('data-button') !== data.coin) c.style.visibility = 'hidden';
         else c.style.visibility = 'visible';
       });
 
-      // Video aus der Nachricht verwenden!
       if (!data.video) return;
       const delay = data.startTime - Date.now();
       setTimeout(() => {
         video.src = data.video;
         video.loop = false;
-        video.muted = false;
+        video.muted = !isIpad; // Nur auf dem iPad mit Ton!
         video.style.display = 'block';
         video.load();
         video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
@@ -110,18 +111,8 @@ coins.forEach(coin => {
 
     clickSound.onended = () => {
       const startTime = Date.now() + 1000; // 1 Sekunde Verzögerung
-      ws.send(JSON.stringify({ type: 'coin', coin: buttonType, video: randomVideo, startTime }));
-
-      // Workaround: Starte das Video auch lokal, falls keine Nachricht zurückkommt
-      setTimeout(() => {
-        video.src = randomVideo;
-        video.loop = false;
-        video.muted = false;
-        video.style.display = 'block';
-        video.load();
-        video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
-        chooseText.textContent = `Prophecy for coin ${buttonType}`;
-      }, 1000); // gleiche Verzögerung wie in startTime
+      ws.send(JSON.stringify({ type: 'coin', coin: buttonType, video: randomVideo, startTime, sender: myClientId }));
+      // Kein setTimeout und kein video.play() hier!
     };
   });
 });
@@ -164,6 +155,16 @@ window.addEventListener('load', () => {
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
     screensaverAudio.play().catch(() => {});
+    video.play().catch(() => {});
+    window.removeEventListener('click', unlockMedia);
+    window.removeEventListener('touchstart', unlockMedia);
+  };
+  window.addEventListener('click', unlockMedia);
+  window.addEventListener('touchstart', unlockMedia);
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  const unlockMedia = () => {
     video.play().catch(() => {});
     window.removeEventListener('click', unlockMedia);
     window.removeEventListener('touchstart', unlockMedia);
