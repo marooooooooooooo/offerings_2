@@ -5,7 +5,7 @@ const claimButton = document.getElementById('claim-button');
 const claimAudio = document.getElementById('claim-audio');
 const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
-const myClientId = Math.random().toString(36).substr(2, 9);
+const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 const isIpad = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 // Verbindung zum WebSocket-Server herstellen
@@ -18,21 +18,19 @@ ws.onerror = (err) => {
   console.error('WebSocket Fehler:', err);
 };
 
-// Funktion zum Senden einer Nachricht
-function sendMessage(type, payload) {
-  ws.send(JSON.stringify({ type, payload }));
-}
-
 // Nachricht empfangen und darauf reagieren
 ws.onmessage = (event) => {
   try {
     const data = JSON.parse(event.data);
-    // Beispiel: Zeige empfangene Nachricht im Display-Bereich an
+    console.log('Empfangen:', data, 'Mein ClientId:', myClientId);
+
+    // Prophezeiungstext anzeigen (optional)
     if (data.type === 'prophecy') {
       document.getElementById('display').innerText = data.payload;
     }
-    if (data.type === 'coin') {
 
+    // Prophezeiungsvideo abspielen
+    if (data.type === 'coin') {
       coins.forEach(c => {
         if (c.getAttribute('data-button') !== data.coin) c.style.visibility = 'hidden';
         else c.style.visibility = 'visible';
@@ -50,14 +48,17 @@ ws.onmessage = (event) => {
         chooseText.textContent = `Prophecy for coin ${data.coin}`;
       }, Math.max(0, delay));
     }
+
+    // Claim-Button verstecken und Screensaver starten
     if (data.type === 'claim') {
       claimButton.style.display = 'none';
       claimAudio.pause();
       claimAudio.currentTime = 0;
       startScreensaver();
     }
+
+    // Screensaver synchron starten
     if (data.type === 'screensaver_start') {
-      // Optional: Zeitdifferenz berechnen, um möglichst synchron zu starten
       video.currentTime = 0;
       video.play();
     }
@@ -79,7 +80,6 @@ function startScreensaver() {
   claimButton.style.display = 'none';
   chooseText.textContent = 'Select a data offering to proceed';
   coins.forEach(coin => coin.style.visibility = 'visible');
-  // Wenn du willst, dass ein Tab der "Master" ist:
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
 
@@ -127,13 +127,19 @@ video.addEventListener('ended', () => {
   video.load();
   video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
 
-  // Screensaver-Audio NICHT starten!
-  // Claim-Button und Claim-Audio wie gehabt
-  claimButton.style.display = 'block';
-  claimAudio.currentTime = 0;
-  claimAudio.loop = true;
-  claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
-  chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
+  // Claim-Button und Claim-Audio NUR auf dem iPad anzeigen
+  if (isIpad) {
+    claimButton.style.display = 'block';
+    claimAudio.currentTime = 0;
+    claimAudio.loop = true;
+    claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
+    chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
+  } else {
+    claimButton.style.display = 'none';
+    claimAudio.pause();
+    claimAudio.currentTime = 0;
+    chooseText.textContent = '';
+  }
   coins.forEach(coin => coin.style.visibility = 'hidden');
 });
 
@@ -142,9 +148,7 @@ claimButton.addEventListener('click', () => {
   claimButton.style.display = 'none';
   claimAudio.pause();
   claimAudio.currentTime = 0;
-  // Synchronisiere Claim-Button über WebSocket!
   ws.send(JSON.stringify({ type: 'claim' }));
-  // Jetzt wird Screensaver-Audio wieder gestartet:
   startScreensaver();
 });
 
