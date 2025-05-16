@@ -119,28 +119,28 @@ coins.forEach(coin => {
 
 // Wenn Prophezeiungsvideo zu Ende ist
 video.addEventListener('ended', () => {
-  // Screensaver wieder starten
-  video.src = 'assets/screensaver.mp4';
-  video.loop = true;
-  video.muted = true;
-  video.style.display = 'block';
-  video.load();
-  video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
-
-  // Claim-Button und Claim-Audio NUR auf dem iPad anzeigen
   if (isIpad) {
+    // Nur auf dem iPad: Claim-Button und Claim-Audio anzeigen, KEIN Screensaver!
     claimButton.style.display = 'block';
     claimAudio.currentTime = 0;
     claimAudio.loop = true;
     claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
     chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
+    coins.forEach(coin => coin.style.visibility = 'hidden');
   } else {
+    // Auf dem Screen: Direkt Screensaver starten, Claim-Button ausblenden
+    video.src = 'assets/screensaver.mp4';
+    video.loop = true;
+    video.muted = true;
+    video.style.display = 'block';
+    video.load();
+    video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
     claimButton.style.display = 'none';
     claimAudio.pause();
     claimAudio.currentTime = 0;
     chooseText.textContent = '';
+    coins.forEach(coin => coin.style.visibility = 'hidden');
   }
-  coins.forEach(coin => coin.style.visibility = 'hidden');
 });
 
 // Claim-Button gedrückt
