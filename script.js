@@ -8,6 +8,11 @@ const chooseText = document.querySelector('.choose-text');
 const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 const isIpad = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+// Startscreen-Elemente
+const startscreen = document.getElementById('startscreen');
+const startButton = document.getElementById('start-button');
+const mainContent = document.getElementById('main-content');
+
 // Verbindung zum WebSocket-Server herstellen
 const ws = new WebSocket('wss://blessed-socket-server-f08da3206592.herokuapp.com:443');
 
@@ -149,12 +154,17 @@ claimButton.addEventListener('click', () => {
   claimAudio.pause();
   claimAudio.currentTime = 0;
   ws.send(JSON.stringify({ type: 'claim' }));
-  startScreensaver();
+  
+  // Nach Claim wieder zum Startscreen wechseln
+  mainContent.style.display = 'none';
+  startscreen.style.display = 'flex';
 });
 
 // Seite lädt
 window.addEventListener('load', () => {
-  startScreensaver();
+  // Nur Startscreen anzeigen, Hauptinhalt ausblenden
+  startscreen.style.display = 'flex';
+  mainContent.style.display = 'none';
 
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
@@ -165,6 +175,13 @@ window.addEventListener('load', () => {
   };
   window.addEventListener('click', unlockMedia);
   window.addEventListener('touchstart', unlockMedia);
+});
+
+// Start-Button gedrückt: Wechsel zum Hauptinhalt
+startButton.addEventListener('click', () => {
+  startscreen.style.display = 'none';
+  mainContent.style.display = 'block';
+  startScreensaver();
 });
 
 window.addEventListener('DOMContentLoaded', () => {
