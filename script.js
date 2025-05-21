@@ -18,6 +18,8 @@ let prophecyAudio = null;
 
 // Merke dir, ob dieses Gerät der Sender der aktuellen Prophezeiung ist
 let isCurrentProphecySender = false;
+// Merke dir, wer der Sender der aktuellen Prophezeiung ist
+let prophecySenderId = null;
 
 // Verbindung zum WebSocket-Server herstellen
 const ws = new WebSocket('wss://blessed-socket-server-f08da3206592.herokuapp.com:443');
@@ -45,6 +47,7 @@ ws.onmessage = (event) => {
     if (data.type === 'coin') {
       // Merke, ob dieses Gerät der Sender ist
       isCurrentProphecySender = (data.sender === myClientId);
+      prophecySenderId = data.sender;
 
       // Stoppe evtl. laufenden Begleit-Ton
       if (prophecyAudio) {
@@ -95,6 +98,16 @@ ws.onmessage = (event) => {
     if (data.type === 'screensaver_start') {
       video.currentTime = 0;
       video.play();
+    }
+
+    // Claim-Button gezielt anzeigen (WebSocket-Lösung)
+    if (data.type === 'show_claim' && myClientId === data.prophecySender) {
+      claimButton.style.display = 'block';
+      claimAudio.currentTime = 0;
+      claimAudio.loop = true;
+      claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
+      chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
+      coins.forEach(coin => coin.style.visibility = 'hidden');
     }
   } catch (e) {
     // Nachricht war kein JSON (z.B. "ping") – ignoriere sie einfach
@@ -153,18 +166,12 @@ coins.forEach(coin => {
 
 // Wenn Prophezeiungsvideo zu Ende ist
 video.addEventListener('ended', () => {
-  // Nur auf dem Gerät, das die Prophezeiung ausgelöst hat, Claim-Button und Text anzeigen
-  if (isCurrentProphecySender) {
-    claimButton.style.display = 'block';
-    claimAudio.currentTime = 0;
-    claimAudio.loop = true;
-    claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
-    chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
-    coins.forEach(coin => coin.style.visibility = 'hidden');
-  } else {
-    // Auf allen anderen Geräten: Direkt Screensaver starten, Claim-Button ausblenden
-    startScreensaver();
+  // Nach Video-Ende: show_claim-Nachricht senden, damit der Claim-Button garantiert auf dem Sender-Gerät erscheint
+  if (prophecySenderId) {
+    ws.send(JSON.stringify({ type: 'show_claim', sender: myClientId, prophecySender: prophecySenderId }));
   }
+  // Auf allen Geräten: Screensaver starten
+  startScreensaver();
   // Begleit-Ton stoppen
   if (prophecyAudio) {
     prophecyAudio.pause();
