@@ -12,7 +12,7 @@ body {
 
 /* Linke Seite (Buttons) */
 .left-side {
-  flex: 1;
+  width: 50vw; /* Feste Breite von 50% der Viewport-Breite */
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -20,6 +20,7 @@ body {
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
+  /* flex: 1; wurde entfernt */
 }
 
 .choose-text {
@@ -51,13 +52,14 @@ body {
 
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
-  flex: 1;
+  width: 50vw; /* Feste Breite von 50% der Viewport-Breite */
   background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
+  /* flex: 1; wurde entfernt */
 }
 
 /* Screensaver und Video */
@@ -118,9 +120,9 @@ body {
   transform: rotate(90deg);
   /* Damit das Video nicht aus dem Container ragt: */
   max-width: 100vh;
-  max-height: 100vw;
+  max-height: 50vw; /* Angepasst: Die gedrehte Höhe sollte in die Breite des Containers (50vw) passen */
   width: auto;
-  height: 100vw;
+  height: auto; /* Angepasst: Höhe automatisch basierend auf max-height */
   object-fit: contain;
   display: block;
   margin: 0 auto;
