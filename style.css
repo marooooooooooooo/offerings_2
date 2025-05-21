@@ -15,8 +15,8 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 2752px;
-  height: 2064px;
+  width: 1024;
+  height: 768;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
