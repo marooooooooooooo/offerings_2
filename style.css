@@ -55,7 +55,7 @@ body {
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
   position: absolute;
-  left: 2752px;
+  left: 1024px;   /* <-- Direkt rechts neben der linken Seite! */
   top: 0;
   width: 3840px;
   height: 2160px;
