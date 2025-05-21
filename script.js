@@ -31,10 +31,11 @@ ws.onmessage = (event) => {
 
     // Prophezeiungstext anzeigen (optional)
     if (data.type === 'prophecy') {
-      document.getElementById('display').innerText = data.payload;
+      const display = document.getElementById('display');
+      if (display) display.innerText = data.payload;
     }
 
-    // Prophezeiungsvideo abspielen
+    // Prophezeiungsvideo abspielen (synchron auf allen Geräten)
     if (data.type === 'coin') {
       coins.forEach(c => {
         if (c.getAttribute('data-button') !== data.coin) c.style.visibility = 'hidden';
@@ -154,7 +155,7 @@ claimButton.addEventListener('click', () => {
   claimAudio.pause();
   claimAudio.currentTime = 0;
   ws.send(JSON.stringify({ type: 'claim' }));
-  
+
   // Nach Claim wieder zum Startscreen wechseln
   mainContent.style.display = 'none';
   startscreen.style.display = 'flex';
