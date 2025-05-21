@@ -10,6 +10,16 @@ body {
   overflow: auto;
 }
 
+/* Klassen zum Ausblenden der linken Seite */
+body.hide-left .left-side {
+  display: none !important;
+}
+
+body.hide-left .right-side {
+  left: 0 !important;
+  width: 100% !important;
+}
+
 /* Linke Seite (Buttons) */
 .left-side {
   position: absolute;
