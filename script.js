@@ -62,15 +62,31 @@ ws.onmessage = (event) => {
       setTimeout(() => {
         video.src = data.video;
         video.loop = false;
-        video.muted = false; // Mit Ton!
+        video.muted = true; // Immer muted!
         video.style.display = 'block';
         video.load();
         video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
         chooseText.textContent = `Prophecy for coin ${data.coin}`;
 
-        // Begleit-Ton für videoA1.mp4 abspielen
-        if (data.video.includes('videoA1.mp4')) {
-          prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
+        // Begleit-Ton für jedes Video
+        const audioMap = {
+          'videoA1.mp4': 'assets/begleit_ton_videoA1.mp3',
+          'videoA2.mp4': 'assets/begleit_ton_videoA2.mp3',
+          'videoA3.mp4': 'assets/begleit_ton_videoA3.mp3',
+          'videoB1.mp4': 'assets/begleit_ton_videoB1.mp3',
+          'videoB2.mp4': 'assets/begleit_ton_videoB2.mp3',
+          'videoB3.mp4': 'assets/begleit_ton_videoB3.mp3',
+          'videoC1.mp4': 'assets/begleit_ton_videoC1.mp3',
+          'videoC2.mp4': 'assets/begleit_ton_videoC2.mp3',
+          'videoC3.mp4': 'assets/begleit_ton_videoC3.mp3'
+        };
+        
+        // Extrahiere den Dateinamen aus dem Pfad
+        const videoFileName = data.video.split('/').pop();
+        const audioFile = audioMap[videoFileName];
+        
+        if (audioFile) {
+          prophecyAudio = new Audio(audioFile);
           prophecyAudio.currentTime = 0;
           prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
         } else {
@@ -194,29 +210,18 @@ window.addEventListener('load', () => {
   startscreen.style.display = 'flex';
   mainContent.style.display = 'none';
 
-  // Geräteerkennung für iOS
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
     video.src = 'assets/screensaver.mp4';
     video.loop = true;
+    video.muted = true; // Immer muted!
     video.style.display = 'block';
     video.load();
+    video.play().catch(e => console.warn('Video Autoplay fehlgeschlagen:', e));
     
-    if (isIOS) {
-      // iOS: Erst muted abspielen, dann unmute setzen
-      video.muted = true;
-      video.play().then(() => {
-        video.muted = false;
-      }).catch(e => console.warn('iOS Video Autoplay fehlgeschlagen:', e));
-    } else {
-      // Andere Geräte: Direkt mit Ton abspielen
-      video.muted = false;
-      video.play().catch(e => console.warn('Video Autoplay fehlgeschlagen:', e));
-    }
-    
+    // Audio separat abspielen
     screensaverAudio.play().catch(e => console.warn('Audio Autoplay fehlgeschlagen:', e));
+    
     window.removeEventListener('click', unlockMedia);
     window.removeEventListener('touchstart', unlockMedia);
   };
