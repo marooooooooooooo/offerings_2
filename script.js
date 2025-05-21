@@ -154,13 +154,15 @@ window.addEventListener('load', () => {
 
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
-    // Setze eine echte Quelle (Screensaver) und spiele mit Ton ab
     video.src = 'assets/screensaver.mp4';
     video.loop = true;
-    video.muted = false; // Wichtig: unmuted, damit spätere Videos mit Ton funktionieren
+    video.muted = true; // muted für das erste Play
     video.style.display = 'block';
     video.load();
-    video.play().catch(() => {});
+    video.play().then(() => {
+      // Jetzt unmute setzen, damit spätere Videos mit Ton funktionieren
+      video.muted = false;
+    }).catch(() => {});
     screensaverAudio.play().catch(() => {});
     window.removeEventListener('click', unlockMedia);
     window.removeEventListener('touchstart', unlockMedia);
