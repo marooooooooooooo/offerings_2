@@ -170,8 +170,10 @@ video.addEventListener('ended', () => {
   if (prophecySenderId) {
     ws.send(JSON.stringify({ type: 'show_claim', sender: myClientId, prophecySender: prophecySenderId }));
   }
-  // Auf allen Geräten: Screensaver starten
-  startScreensaver();
+  // Nur auf Geräten, die NICHT der Sender sind: Screensaver starten
+  if (myClientId !== prophecySenderId) {
+    startScreensaver();
+  }
   // Begleit-Ton stoppen
   if (prophecyAudio) {
     prophecyAudio.pause();
