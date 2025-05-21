@@ -56,7 +56,7 @@ ws.onmessage = (event) => {
       setTimeout(() => {
         video.src = data.video;
         video.loop = false;
-        video.muted = true; // Immer muted!
+        video.muted = false; // Wieder mit Ton!
         video.style.display = 'block';
         video.load();
         video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
