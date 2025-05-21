@@ -8,9 +8,6 @@ const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
 const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 
-// Merke dir, ob dieses Gerät der Sender der aktuellen Prophezeiung ist
-let isCurrentProphecySender = false;
-
 // Startscreen-Elemente
 const startscreen = document.getElementById('startscreen');
 const startButton = document.getElementById('start-button');
@@ -18,6 +15,9 @@ const mainContent = document.getElementById('main-content');
 
 // Begleit-Ton für Prophezeiungsvideos
 let prophecyAudio = null;
+
+// Merke dir, ob dieses Gerät der Sender der aktuellen Prophezeiung ist
+let isCurrentProphecySender = false;
 
 // Verbindung zum WebSocket-Server herstellen
 const ws = new WebSocket('wss://blessed-socket-server-f08da3206592.herokuapp.com:443');
@@ -45,7 +45,7 @@ ws.onmessage = (event) => {
     if (data.type === 'coin') {
       // Merke, ob dieses Gerät der Sender ist
       isCurrentProphecySender = (data.sender === myClientId);
-      
+
       // Stoppe evtl. laufenden Begleit-Ton
       if (prophecyAudio) {
         prophecyAudio.pause();
@@ -68,25 +68,9 @@ ws.onmessage = (event) => {
         video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
         chooseText.textContent = `Prophecy for coin ${data.coin}`;
 
-        // Begleit-Ton für jedes Video
-        const audioMap = {
-          'videoA1.mp4': 'assets/begleit_ton_videoA1.mp3',
-          'videoA2.mp4': 'assets/begleit_ton_videoA2.mp3',
-          'videoA3.mp4': 'assets/begleit_ton_videoA3.mp3',
-          'videoB1.mp4': 'assets/begleit_ton_videoB1.mp3',
-          'videoB2.mp4': 'assets/begleit_ton_videoB2.mp3',
-          'videoB3.mp4': 'assets/begleit_ton_videoB3.mp3',
-          'videoC1.mp4': 'assets/begleit_ton_videoC1.mp3',
-          'videoC2.mp4': 'assets/begleit_ton_videoC2.mp3',
-          'videoC3.mp4': 'assets/begleit_ton_videoC3.mp3'
-        };
-        
-        // Extrahiere den Dateinamen aus dem Pfad
-        const videoFileName = data.video.split('/').pop();
-        const audioFile = audioMap[videoFileName];
-        
-        if (audioFile) {
-          prophecyAudio = new Audio(audioFile);
+        // Begleit-Ton für videoA1.mp4 abspielen
+        if (data.video.includes('videoA1.mp4')) {
+          prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
           prophecyAudio.currentTime = 0;
           prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
         } else {
@@ -212,16 +196,9 @@ window.addEventListener('load', () => {
 
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
-    video.src = 'assets/screensaver.mp4';
-    video.loop = true;
-    video.muted = true; // Immer muted!
-    video.style.display = 'block';
-    video.load();
-    video.play().catch(e => console.warn('Video Autoplay fehlgeschlagen:', e));
-    
-    // Audio separat abspielen
-    screensaverAudio.play().catch(e => console.warn('Audio Autoplay fehlgeschlagen:', e));
-    
+    video.muted = true;
+    video.play().catch(() => {});
+    screensaverAudio.play().catch(() => {});
     window.removeEventListener('click', unlockMedia);
     window.removeEventListener('touchstart', unlockMedia);
   };
