@@ -2,25 +2,27 @@
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: row;
-  height: 100vh; /* Vollbildhöhe */
-  overflow-y: auto; /* Ermöglicht Scrollen */
+  position: relative;
+  min-width: 6592px; /* 2752 + 3840 */
+  min-height: 2160px; /* Höhe der rechten Seite */
   background-color: black;
   font-family: sans-serif;
+  overflow: auto;
 }
 
 /* Linke Seite (Buttons) */
 .left-side {
-  width: 50vw; /* Feste Breite von 50% der Viewport-Breite */
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2752px;
+  height: 2064px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
   box-sizing: border-box;
-  /* flex: 1; wurde entfernt */
 }
 
 .choose-text {
@@ -52,14 +54,17 @@ body {
 
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
-  width: 50vw; /* Feste Breite von 50% der Viewport-Breite */
+  position: absolute;
+  left: 2752px;
+  top: 0;
+  width: 3840px;
+  height: 2160px;
   background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  /* flex: 1; wurde entfernt */
 }
 
 /* Screensaver und Video */
