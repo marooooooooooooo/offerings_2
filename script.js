@@ -194,18 +194,29 @@ window.addEventListener('load', () => {
   startscreen.style.display = 'flex';
   mainContent.style.display = 'none';
 
+  // Geräteerkennung für iOS
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
     video.src = 'assets/screensaver.mp4';
     video.loop = true;
-    video.muted = true; // ZUERST muted!
     video.style.display = 'block';
     video.load();
-    video.play().then(() => {
-      // Jetzt unmute setzen, damit spätere Videos mit Ton funktionieren
+    
+    if (isIOS) {
+      // iOS: Erst muted abspielen, dann unmute setzen
+      video.muted = true;
+      video.play().then(() => {
+        video.muted = false;
+      }).catch(e => console.warn('iOS Video Autoplay fehlgeschlagen:', e));
+    } else {
+      // Andere Geräte: Direkt mit Ton abspielen
       video.muted = false;
-    }).catch(() => {});
-    screensaverAudio.play().catch(() => {});
+      video.play().catch(e => console.warn('Video Autoplay fehlgeschlagen:', e));
+    }
+    
+    screensaverAudio.play().catch(e => console.warn('Audio Autoplay fehlgeschlagen:', e));
     window.removeEventListener('click', unlockMedia);
     window.removeEventListener('touchstart', unlockMedia);
   };
