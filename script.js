@@ -8,6 +8,9 @@ const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
 const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 
+// Merke dir, ob dieses Gerät der Sender der aktuellen Prophezeiung ist
+let isCurrentProphecySender = false;
+
 // Startscreen-Elemente
 const startscreen = document.getElementById('startscreen');
 const startButton = document.getElementById('start-button');
@@ -40,6 +43,9 @@ ws.onmessage = (event) => {
 
     // Prophezeiungsvideo abspielen (synchron auf allen Geräten)
     if (data.type === 'coin') {
+      // Merke, ob dieses Gerät der Sender ist
+      isCurrentProphecySender = (data.sender === myClientId);
+      
       // Stoppe evtl. laufenden Begleit-Ton
       if (prophecyAudio) {
         prophecyAudio.pause();
@@ -147,13 +153,18 @@ coins.forEach(coin => {
 
 // Wenn Prophezeiungsvideo zu Ende ist
 video.addEventListener('ended', () => {
-  // Auf allen Geräten: Claim-Button und Claim-Audio anzeigen
-  claimButton.style.display = 'block';
-  claimAudio.currentTime = 0;
-  claimAudio.loop = true;
-  claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
-  chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
-  coins.forEach(coin => coin.style.visibility = 'hidden');
+  // Nur auf dem Gerät, das die Prophezeiung ausgelöst hat, Claim-Button und Text anzeigen
+  if (isCurrentProphecySender) {
+    claimButton.style.display = 'block';
+    claimAudio.currentTime = 0;
+    claimAudio.loop = true;
+    claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
+    chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
+    coins.forEach(coin => coin.style.visibility = 'hidden');
+  } else {
+    // Auf allen anderen Geräten: Direkt Screensaver starten, Claim-Button ausblenden
+    startScreensaver();
+  }
   // Begleit-Ton stoppen
   if (prophecyAudio) {
     prophecyAudio.pause();
