@@ -13,6 +13,9 @@ const startscreen = document.getElementById('startscreen');
 const startButton = document.getElementById('start-button');
 const mainContent = document.getElementById('main-content');
 
+// Begleit-Ton für Prophezeiungsvideos
+let prophecyAudio = null;
+
 // Verbindung zum WebSocket-Server herstellen
 const ws = new WebSocket('wss://blessed-socket-server-f08da3206592.herokuapp.com:443');
 
@@ -37,6 +40,12 @@ ws.onmessage = (event) => {
 
     // Prophezeiungsvideo abspielen (synchron auf allen Geräten)
     if (data.type === 'coin') {
+      // Stoppe evtl. laufenden Begleit-Ton
+      if (prophecyAudio) {
+        prophecyAudio.pause();
+        prophecyAudio.currentTime = 0;
+      }
+
       coins.forEach(c => {
         if (c.getAttribute('data-button') !== data.coin) c.style.visibility = 'hidden';
         else c.style.visibility = 'visible';
@@ -47,11 +56,20 @@ ws.onmessage = (event) => {
       setTimeout(() => {
         video.src = data.video;
         video.loop = false;
-        video.muted = false; // Ton auf allen Geräten
+        video.muted = true; // Immer muted!
         video.style.display = 'block';
         video.load();
         video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
         chooseText.textContent = `Prophecy for coin ${data.coin}`;
+
+        // Begleit-Ton für videoA1.mp4 abspielen
+        if (data.video.includes('videoA1.mp4')) {
+          prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
+          prophecyAudio.currentTime = 0;
+          prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
+        } else {
+          prophecyAudio = null;
+        }
       }, Math.max(0, delay));
     }
 
@@ -60,6 +78,10 @@ ws.onmessage = (event) => {
       claimButton.style.display = 'none';
       claimAudio.pause();
       claimAudio.currentTime = 0;
+      if (prophecyAudio) {
+        prophecyAudio.pause();
+        prophecyAudio.currentTime = 0;
+      }
       startScreensaver();
     }
 
@@ -132,6 +154,11 @@ video.addEventListener('ended', () => {
   claimAudio.play().catch(e => console.warn('Claim-Audio konnte nicht abgespielt werden:', e));
   chooseText.textContent = 'If you accept the prophecy, touch the word below to seal it.';
   coins.forEach(coin => coin.style.visibility = 'hidden');
+  // Begleit-Ton stoppen
+  if (prophecyAudio) {
+    prophecyAudio.pause();
+    prophecyAudio.currentTime = 0;
+  }
 });
 
 // Claim-Button gedrückt
@@ -139,6 +166,10 @@ claimButton.addEventListener('click', () => {
   claimButton.style.display = 'none';
   claimAudio.pause();
   claimAudio.currentTime = 0;
+  if (prophecyAudio) {
+    prophecyAudio.pause();
+    prophecyAudio.currentTime = 0;
+  }
   ws.send(JSON.stringify({ type: 'claim' }));
 
   // Nach Claim wieder zum Startscreen wechseln
