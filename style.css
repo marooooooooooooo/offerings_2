@@ -3,7 +3,7 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  min-width: 6592px; /* 2752 + 3840 */
+  min-width: 4864px; /* 1024 + 3840 */
   min-height: 2160px; /* Höhe der rechten Seite */
   background-color: black;
   font-family: sans-serif;
@@ -55,7 +55,7 @@ body {
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
   position: absolute;
-  left: 1024px;   /* <-- Direkt rechts neben der linken Seite! */
+  left: 1024px;   /* Direkt rechts neben der linken Seite! */
   top: 0;
   width: 3840px;
   height: 2160px;
@@ -116,7 +116,7 @@ body {
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Behält das Seitenverhältnis bei */
+  object-fit: cover; /* Skaliert das Video maximal, füllt den Container */
   display: block;
   margin: 0 auto;
   background: black;
@@ -128,8 +128,22 @@ body {
   height: 100%;
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; /* Behält das Seitenverhältnis bei */
+  object-fit: cover;
   display: block;
   margin: 0 auto;
   background: black;
+}
+
+/* Optional: Ausblenden der linken Seite und Maximieren der rechten Seite */
+body.hide-left .left-side {
+  display: none !important;
+}
+body.hide-left .right-side {
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+}
+body.hide-left {
+  min-width: 100vw !important;
+  width: 100vw !important;
 }
