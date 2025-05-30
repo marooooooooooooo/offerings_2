@@ -12,7 +12,10 @@
   <div class="left-side">
     <!-- Startscreen (sichtbar beim Laden) -->
     <div id="startscreen" style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <img src="assets/startscreen.svg" alt="Start Screen" style="max-width: 80%; margin-bottom: 30px;">
+      <video id="startscreen-video" autoplay muted loop playsinline style="max-width: 80%; margin-bottom: 30px;">
+        <source src="assets/startscreen.mp4" type="video/mp4">
+        Dein Browser unterstützt das Video-Tag nicht.
+      </video>
       <button id="start-button" style="font-size: 1.5rem; padding: 15px 30px; background-color: #ffcc00; color: #000; border: none; border-radius: 10px; cursor: pointer;">Start</button>
     </div>
     <!-- Main Content (Coins and Claim Button, initial versteckt) -->
