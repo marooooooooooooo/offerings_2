@@ -138,6 +138,15 @@ body {
   transform: rotate(90deg);
 }
 
+.rotate-90-container {
+  transform: rotate(90deg);
+  transform-origin: center center;
+  width: 100vh; /* swap width and height for vertical */
+  height: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
 /* Optional: Ausblenden der linken Seite und Maximieren der rechten Seite */
 body.hide-left .left-side {
   display: none !important;
