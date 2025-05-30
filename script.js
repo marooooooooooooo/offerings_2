@@ -199,12 +199,9 @@ claimButton.addEventListener('click', () => {
 
 // Seite lädt
 window.addEventListener('load', () => {
-  // Startscreen ausblenden, Hauptinhalt anzeigen
-  startscreen.style.display = 'none';
-  mainContent.style.display = 'block';
-
-  // Screensaver sofort starten
-  startScreensaver();
+  // Nur Startscreen anzeigen, Hauptinhalt ausblenden
+  startscreen.style.display = 'flex';
+  mainContent.style.display = 'none';
 
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
