@@ -63,22 +63,23 @@ ws.onmessage = (event) => {
       if (!data.video) return;
       const delay = data.startTime - Date.now();
       setTimeout(() => {
-        video.src = data.video;
-        video.loop = false;
-        video.muted = true; // Immer muted!
-        video.style.display = 'block';
-        video.load();
-        video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
-        chooseText.textContent = `Prophecy for coin ${data.coin}`;
+      video.src = data.video;
+      video.loop = false;
+      video.muted = true; // Immer muted!
+      video.style.display = 'block';
+      video.style.transform = 'none';
+      video.load();
+      video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
+      chooseText.textContent = `Prophecy for coin ${data.coin}`;
 
-        // Begleit-Ton für videoA1.mp4 abspielen
-        if (data.video.includes('videoA1.mp4')) {
-          prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
-          prophecyAudio.currentTime = 0;
-          prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
-        } else {
-          prophecyAudio = null;
-        }
+      // Begleit-Ton für videoA1.mp4 abspielen
+      if (data.video.includes('videoA1.mp4')) {
+        prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
+        prophecyAudio.currentTime = 0;
+        prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
+      } else {
+        prophecyAudio = null;
+      }
       }, Math.max(0, delay));
     }
 
@@ -119,6 +120,7 @@ function startScreensaver() {
   video.loop = true;
   video.muted = true;
   video.style.display = 'block';
+  video.style.transform = 'rotate(90deg)';
   video.load();
   video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
   // Screensaver-Audio nur hier starten!
