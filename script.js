@@ -67,7 +67,7 @@ ws.onmessage = (event) => {
       video.loop = false;
       video.muted = true; // Immer muted!
       video.style.display = 'block';
-      video.style.transform = 'none';
+      video.classList.remove('rotate-90');
       video.load();
       video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
       chooseText.textContent = `Prophecy for coin ${data.coin}`;
@@ -120,7 +120,7 @@ function startScreensaver() {
   video.loop = true;
   video.muted = true;
   video.style.display = 'block';
-  video.style.transform = 'rotate(90deg)';
+  video.classList.add('rotate-90');
   video.load();
   video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
   // Screensaver-Audio nur hier starten!
