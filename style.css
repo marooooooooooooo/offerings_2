@@ -132,6 +132,9 @@ body {
   display: block;
   margin: 0 auto;
   background: black;
+}
+
+.rotate-90 {
   transform: rotate(90deg);
 }
 
