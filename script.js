@@ -67,11 +67,6 @@ ws.onmessage = (event) => {
       video.loop = false;
       video.muted = true; // Immer muted!
       video.style.display = 'block';
-      video.classList.remove('rotate-90');
-      const videoContainer = document.querySelector('.right-side');
-      if (videoContainer) {
-        videoContainer.classList.remove('rotate-90-container');
-      }
       video.load();
       video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
       chooseText.textContent = `Prophecy for coin ${data.coin}`;
@@ -124,11 +119,6 @@ function startScreensaver() {
   video.loop = true;
   video.muted = true;
   video.style.display = 'block';
-  video.classList.add('rotate-90');
-  const videoContainer = document.querySelector('.right-side');
-  if (videoContainer) {
-    videoContainer.classList.add('rotate-90-container');
-  }
   video.load();
   video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
   // Screensaver-Audio nur hier starten!
@@ -174,6 +164,7 @@ coins.forEach(coin => {
   });
 });
 
+/* Removed rotation class removals and additions as videos are pre-rotated in Dropbox */
 // Wenn Prophezeiungsvideo zu Ende ist
 video.addEventListener('ended', () => {
   // Nach Video-Ende: show_claim-Nachricht senden, damit der Claim-Button garantiert auf dem Sender-Gerät erscheint
@@ -182,11 +173,6 @@ video.addEventListener('ended', () => {
   }
   // Nur auf Geräten, die NICHT der Sender sind: Screensaver starten
   if (myClientId !== prophecySenderId) {
-    video.classList.remove('rotate-90');
-    const videoContainer = document.querySelector('.right-side');
-    if (videoContainer) {
-      videoContainer.classList.remove('rotate-90-container');
-    }
     startScreensaver();
   }
   // Begleit-Ton stoppen
