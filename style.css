@@ -132,6 +132,7 @@ body {
   display: block;
   margin: 0 auto;
   background: black;
+  transform: rotate(90deg);
 }
 
 /* Optional: Ausblenden der linken Seite und Maximieren der rechten Seite */
