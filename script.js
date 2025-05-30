@@ -182,6 +182,11 @@ video.addEventListener('ended', () => {
   }
   // Nur auf Geräten, die NICHT der Sender sind: Screensaver starten
   if (myClientId !== prophecySenderId) {
+    video.classList.remove('rotate-90');
+    const videoContainer = document.querySelector('.right-side');
+    if (videoContainer) {
+      videoContainer.classList.remove('rotate-90-container');
+    }
     startScreensaver();
   }
   // Begleit-Ton stoppen
