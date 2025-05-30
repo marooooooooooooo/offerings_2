@@ -134,18 +134,7 @@ body {
   background: black;
 }
 
-.rotate-90 {
-  transform: rotate(90deg);
-}
-
-.rotate-90-container {
-  transform: rotate(90deg);
-  transform-origin: center center;
-  width: 100vh; /* swap width and height for vertical */
-  height: 100vw;
-  overflow: hidden;
-  position: relative;
-}
+/* Removed rotation classes as videos are pre-rotated in Dropbox */
 
 /* Optional: Ausblenden der linken Seite und Maximieren der rechten Seite */
 body.hide-left .left-side {
