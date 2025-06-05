@@ -52,6 +52,10 @@ body {
   justify-content: center;
 }
 
+#startscreen-button video {
+  pointer-events: none;
+}
+
 #start-button {
   position: fixed;
   top: 20px;
