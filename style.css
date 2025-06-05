@@ -28,14 +28,28 @@ body {
 
 /* Startscreen Styling */
 #startscreen {
-  width: 100%; /* Sicherstellen, dass der Startscreen die volle Breite einnimmt (jetzt 100% von 1024px) */
-  height: auto; /* Höhe auf auto setzen, damit sich die Höhe nach Inhalt richtet */
+  width: 1024px; /* Feste Breite */
+  height: 768px; /* Feste Höhe */
   display: flex; /* Beibehalten, da es im Inline-Stil war */
   flex-direction: column; /* Beibehalten */
   align-items: flex-start;
   justify-content: flex-start;
   overflow: visible; /* Overflow auf sichtbar setzen, damit Video nicht abgeschnitten wird */
   position: relative; /* Für absolute Positionierung des Buttons */
+}
+
+#startscreen-button {
+  width: 1024px;
+  height: 768px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 #start-button {
