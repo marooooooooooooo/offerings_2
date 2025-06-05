@@ -214,7 +214,40 @@ window.addEventListener('load', () => {
   };
   window.addEventListener('click', unlockMedia);
   window.addEventListener('touchstart', unlockMedia);
+
+  // Reload ipad_1 and ipad_2 videos dynamically
+  reloadVideos();
 });
+
+// Function to reload ipad_1 and ipad_2 videos dynamically
+function reloadVideos() {
+  // Reload startscreen-video (ipad_1)
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    const src = startscreenVideo.querySelector('source').src;
+    startscreenVideo.pause();
+    startscreenVideo.src = '';
+    startscreenVideo.load();
+    startscreenVideo.src = src;
+    startscreenVideo.load();
+    startscreenVideo.play().catch(e => console.warn('Startscreen video reload failed:', e));
+  }
+
+  // Reload all background-video elements (ipad_2)
+  const backgroundVideos = document.querySelectorAll('video#background-video');
+  backgroundVideos.forEach(videoEl => {
+    const sourceEl = videoEl.querySelector('source');
+    if (sourceEl) {
+      const src = sourceEl.src;
+      videoEl.pause();
+      videoEl.src = '';
+      videoEl.load();
+      videoEl.src = src;
+      videoEl.load();
+      videoEl.play().catch(e => console.warn('Background video reload failed:', e));
+    }
+  });
+}
 
 // Start-Button gedrückt: Wechsel zum Hauptinhalt
 startButton.addEventListener('click', () => {
