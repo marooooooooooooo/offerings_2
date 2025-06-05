@@ -254,6 +254,3 @@ function reloadVideos() {
 }
 
 // Start-Button gedrückt: Wechsel zum Hauptinhalt
-if (startButton) {
-  startButton.addEventListener('click', () => {
-    startscreen.style.display = 'none';
