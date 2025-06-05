@@ -29,12 +29,12 @@ body {
 /* Startscreen Styling */
 #startscreen {
   width: 100%; /* Sicherstellen, dass der Startscreen die volle Breite einnimmt (jetzt 100% von 1024px) */
-  height: 100%; /* Sicherstellen, dass der Startscreen die volle Höhe einnimmt */
+  height: auto; /* Höhe auf auto setzen, damit sich die Höhe nach Inhalt richtet */
   display: flex; /* Beibehalten, da es im Inline-Stil war */
   flex-direction: column; /* Beibehalten */
   align-items: center; /* Beibehalten */
   justify-content: center; /* Beibehalten */
-  overflow: hidden; /* Beibehalten */
+  overflow: visible; /* Overflow auf sichtbar setzen, damit Video nicht abgeschnitten wird */
 }
 
 /* Styling für das Startscreen-Video */
