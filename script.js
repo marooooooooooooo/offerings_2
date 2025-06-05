@@ -1,4 +1,3 @@
-
 const video = document.getElementById('video');
 const screensaverAudio = document.getElementById('screensaver-audio');
 const clickSound = document.getElementById('click-sound');
@@ -214,44 +213,7 @@ window.addEventListener('load', () => {
   };
   window.addEventListener('click', unlockMedia);
   window.addEventListener('touchstart', unlockMedia);
-
-  // Reload ipad_1 and ipad_2 videos dynamically
-  reloadVideos();
 });
-
-// Function to reload ipad_1 and ipad_2 videos dynamically
-function reloadVideos() {
-  // Reload startscreen-video (ipad_1)
-  const startscreenVideo = document.getElementById('startscreen-video');
-  if (startscreenVideo) {
-    let src = startscreenVideo.querySelector('source').src;
-    // Add cache buster query param
-    src = src.split('?')[0] + '?v=' + Date.now();
-    startscreenVideo.pause();
-    startscreenVideo.src = '';
-    startscreenVideo.load();
-    startscreenVideo.src = src;
-    startscreenVideo.load();
-    startscreenVideo.play().catch(e => console.warn('Startscreen video reload failed:', e));
-  }
-
-  // Reload all background-video elements (ipad_2)
-  const backgroundVideos = document.querySelectorAll('video#background-video');
-  backgroundVideos.forEach(videoEl => {
-    const sourceEl = videoEl.querySelector('source');
-    if (sourceEl) {
-      let src = sourceEl.src;
-      // Add cache buster query param
-      src = src.split('?')[0] + '?v=' + Date.now();
-      videoEl.pause();
-      videoEl.src = '';
-      videoEl.load();
-      videoEl.src = src;
-      videoEl.load();
-      videoEl.play().catch(e => console.warn('Background video reload failed:', e));
-    }
-  });
-}
 
 // Start-Button gedrückt: Wechsel zum Hauptinhalt
 startButton.addEventListener('click', () => {
