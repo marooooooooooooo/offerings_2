@@ -227,7 +227,7 @@ body.hide-left {
   font-family: 'NewEdge666-LightRounded', sans-serif;
   font-size: 3rem;
   padding: 15px 30px;
-  background-color: #ffcc00;
+  background-color: transparent;
   color: #fff;
   border: none;
   border-radius: 10px;
