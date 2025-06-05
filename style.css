@@ -1,22 +1,24 @@
 /* Grundlayout */
+
 body {
   margin: 0;
   padding: 0;
   position: relative;
   min-width: 4864px; /* 1024 + 3840 */
-  min-height: 2160px; /* Höhe der rechten Seite */
+  min-height: 1668px; /* Höhe der rechten Seite */
   background-color: white; /* Weißer Rand rechts */
   font-family: sans-serif;
   overflow: auto;
 }
+
 
 /* Linke Seite (Buttons) */
 .left-side {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1024px;
-  height: 768px;
+  width: 2388px;
+  height: 1668px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -24,6 +26,7 @@ body {
   justify-content: center;
   box-sizing: border-box;
 }
+
 
 .choose-text {
   color: rgb(0, 0, 0);
@@ -52,13 +55,14 @@ body {
   transform: scale(1.1);
 }
 
+
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
   position: absolute;
-  left: 1024px;   /* Direkt rechts neben der linken Seite! */
+  left: 2388px;   /* Direkt rechts neben der linken Seite! */
   top: 0;
-  width: 3840px;
-  height: 2160px;
+  width: 2476px;
+  height: 1668px;
   background-color: #000;
   display: flex;
   align-items: center;
