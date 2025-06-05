@@ -15,19 +15,29 @@ const ipad2Button = document.getElementById('startscreen-button-ipad2');
 const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
 const ipad1Video = document.getElementById('startscreen-video');
 const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-// Remove event listener on the old single startscreen button if exists
+// Show the single start button on startscreen
 const oldStartscreenButton = document.getElementById('startscreen-button');
 if (oldStartscreenButton) {
-  oldStartscreenButton.style.display = 'none';
-  oldStartscreenButton.replaceWith(oldStartscreenButton.cloneNode(true)); // Remove all event listeners
+  oldStartscreenButton.style.display = 'block';
 }
 
-// Add event listeners to the three buttons on the startscreen
-const startscreenContinueButtonsContainer = document.querySelector('#startscreen #continue-buttons-container');
-const startscreenContinueButtons = startscreenContinueButtonsContainer ? startscreenContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
+// Add event listeners to the three buttons in main-content continue-buttons-container
+const mainContentContinueButtonsContainer = document.querySelector('#main-content #continue-buttons-container');
+const mainContentContinueButtons = mainContentContinueButtonsContainer ? mainContentContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
 
-startscreenContinueButtons.forEach(button => {
+mainContentContinueButtons.forEach(button => {
   button.addEventListener('click', () => {
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
+  });
+});
+
+// Add event listener to the single continue button in main-content
+const continueButton = document.getElementById('continue-button');
+if (continueButton) {
+  continueButton.addEventListener('click', () => {
     const inputSection = document.getElementById('input-section');
     if (inputSection) {
       inputSection.style.display = 'block';
