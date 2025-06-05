@@ -236,3 +236,8 @@ body.hide-left {
   outline: none;
   box-shadow: none;
 }
+
+#startscreen-button-ipad2 .start-text {
+  display: inline-block;
+  margin-top: 600px;
+}
