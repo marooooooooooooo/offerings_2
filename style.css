@@ -79,12 +79,11 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 1024px;
-  height: 768px;
-  /* Remove overflow hidden to allow video to overflow */
-  overflow: visible;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 2388px;
+  height: 1668px;
+  overflow: hidden;
 }
 
 #startscreen-video {
