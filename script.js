@@ -15,10 +15,42 @@ const ipad2Button = document.getElementById('startscreen-button-ipad2');
 const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
 const ipad1Video = document.getElementById('startscreen-video');
 const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-// Show the single start button on startscreen
-const oldStartscreenButton = document.getElementById('startscreen-button');
-if (oldStartscreenButton) {
-  oldStartscreenButton.style.display = 'block';
+let startButton = null;
+if (typeof window !== 'undefined') {
+  startButton = document.getElementById('start-button');
+  if (startButton) {
+    startButton.style.display = 'block';
+    // Add event listeners to switch to ipad_2 video page on click or touch
+    const switchToIpad2 = (event) => {
+      event.preventDefault();
+      const startscreen = document.getElementById('startscreen');
+      const mainContent = document.getElementById('main-content');
+      startscreen.style.display = 'none';
+      mainContent.style.display = 'block';
+      const backgroundVideo = document.getElementById('background-video');
+      if (backgroundVideo) {
+        backgroundVideo.src = 'assets/ipad_2.mp4';
+        backgroundVideo.loop = true;
+        backgroundVideo.muted = true;
+        backgroundVideo.load();
+        backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
+      }
+      const continueButtonsContainer = document.getElementById('continue-buttons-container');
+      if (continueButtonsContainer) {
+        continueButtonsContainer.style.display = 'none';
+      }
+      const continueButton = document.getElementById('continue-button');
+      if (continueButton) {
+        continueButton.style.display = 'block';
+      }
+      const inputSection = document.getElementById('input-section');
+      if (inputSection) {
+        inputSection.style.display = 'block';
+      }
+    };
+    startButton.addEventListener('click', switchToIpad2);
+    startButton.addEventListener('touchstart', switchToIpad2);
+  }
 }
 
 // Add event listeners to the three buttons in main-content continue-buttons-container
