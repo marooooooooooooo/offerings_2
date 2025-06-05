@@ -110,7 +110,7 @@ body {
 #claim-button {
   font-size: 1.5rem; /* Größerer Text */
   padding: 15px 30px; /* Mehr Innenabstand */
-  background-color: #ffcc00; /* Auffällige Hintergrundfarbe */
+  background-color: transparent; /* Kein gelber Hintergrund */
   color: #000000; /* Textfarbe */
   border: none; /* Kein Rahmen */
   border-radius: 10px; /* Abgerundete Ecken */
