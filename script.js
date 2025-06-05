@@ -224,7 +224,9 @@ function reloadVideos() {
   // Reload startscreen-video (ipad_1)
   const startscreenVideo = document.getElementById('startscreen-video');
   if (startscreenVideo) {
-    const src = startscreenVideo.querySelector('source').src;
+    let src = startscreenVideo.querySelector('source').src;
+    // Add cache buster query param
+    src = src.split('?')[0] + '?v=' + Date.now();
     startscreenVideo.pause();
     startscreenVideo.src = '';
     startscreenVideo.load();
@@ -238,7 +240,9 @@ function reloadVideos() {
   backgroundVideos.forEach(videoEl => {
     const sourceEl = videoEl.querySelector('source');
     if (sourceEl) {
-      const src = sourceEl.src;
+      let src = sourceEl.src;
+      // Add cache buster query param
+      src = src.split('?')[0] + '?v=' + Date.now();
       videoEl.pause();
       videoEl.src = '';
       videoEl.load();
