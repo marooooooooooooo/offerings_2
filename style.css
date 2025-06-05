@@ -228,9 +228,11 @@ body.hide-left {
   font-size: 3rem;
   padding: 15px 30px;
   background-color: #ffcc00;
-  color: #000;
+  color: #fff;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   z-index: 10;
+  outline: none;
+  box-shadow: none;
 }
