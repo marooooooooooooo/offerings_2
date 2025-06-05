@@ -1,5 +1,4 @@
 /* Grundlayout */
-
 body {
   margin: 0;
   padding: 0;
@@ -11,20 +10,41 @@ body {
   overflow: auto;
 }
 
-
 /* Linke Seite (Buttons) */
 .left-side {
   position: absolute;
   left: 0;
   top: 0;
-  width: 2388px;
-  height: 1668px;
+  width: 1024px;
+  height: 768px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+}
+
+#startscreen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1024px;
+  height: 768px;
+  /* Remove overflow hidden to allow video to overflow */
+  overflow: visible;
+}
+
+#startscreen-video {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 2388px;
+  height: 1668px;
+  object-fit: cover;
+  z-index: 2;
 }
 
 
