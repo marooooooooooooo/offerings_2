@@ -214,5 +214,6 @@ body.hide-left {
 
 #startscreen-button .start-text {
   display: inline-block;
-  margin-top: 300px;
+  margin-top: 360px;
+  font-family: 'NewEdge666-LightRounded', sans-serif;
 }
