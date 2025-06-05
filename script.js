@@ -227,6 +227,12 @@ if (startscreenButton) {
     startscreen.style.display = 'none';
     mainContent.style.display = 'block';
     startScreensaver();
+
+    // Show input section on right side after Continue
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
   });
 }
 
@@ -240,4 +246,50 @@ if (ipad2Button) {
     ipad2Video.load();
     ipad2Video.play().catch(e => console.warn('ipad_select_offering video konnte nicht abgespielt werden:', e));
   });
+}
+
+// Handle Check button click
+const checkButton = document.getElementById('check-button');
+if (checkButton) {
+  checkButton.addEventListener('click', () => {
+    const dataInput = document.getElementById('data-input');
+    if (!dataInput) return;
+    const inputValue = dataInput.value.trim();
+    if (!inputValue) {
+      alert('Please enter a data offering.');
+      return;
+    }
+
+    // Store selected data offering
+    localStorage.setItem('selectedDataOffering', inputValue);
+
+    // Play random video on right side similar to coins
+    playRandomVideoForDataOffering(inputValue);
+  });
+}
+
+// Function to play random video on right side based on data offering
+function playRandomVideoForDataOffering(dataOffering) {
+  const video = document.getElementById('video');
+  if (!video) return;
+
+  // Define videos for data offerings (example)
+  const videosMap = {
+    A: ['assets/videoA1.mp4', 'assets/videoA2.mp4', 'assets/videoA3.mp4'],
+    B: ['assets/videoB1.mp4', 'assets/videoB2.mp4', 'assets/videoB3.mp4'],
+    C: ['assets/videoC1.mp4', 'assets/videoC2.mp4', 'assets/videoC3.mp4']
+  };
+
+  const videos = videosMap[dataOffering.toUpperCase()];
+  if (!videos || videos.length === 0) {
+    alert('No videos found for the selected data offering.');
+    return;
+  }
+
+  const randomVideo = videos[Math.floor(Math.random() * videos.length)];
+  video.src = randomVideo;
+  video.loop = false;
+  video.muted = true;
+  video.load();
+  video.play().catch(e => console.warn('Video playback failed:', e));
 }
