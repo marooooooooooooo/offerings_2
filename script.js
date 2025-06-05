@@ -1,3 +1,4 @@
+
 const video = document.getElementById('video');
 const screensaverAudio = document.getElementById('screensaver-audio');
 const clickSound = document.getElementById('click-sound');
@@ -7,70 +8,10 @@ const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
 const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 
+// Startscreen-Elemente
 const startscreen = document.getElementById('startscreen');
+const startButton = document.getElementById('start-button');
 const mainContent = document.getElementById('main-content');
-const ipad2Button = document.getElementById('startscreen-button-ipad2');
-const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
-const ipad1Video = document.getElementById('startscreen-video');
-const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-
-if (typeof window !== 'undefined') {
-  const startButton = document.getElementById('start-button');
-  if (startButton) {
-    startButton.style.display = 'block';
-    // Add event listeners to switch to ipad_2 video page on click or touch
-    const switchToIpad2 = (event) => {
-      event.preventDefault();
-      startscreen.style.display = 'none';
-      mainContent.style.display = 'block';
-      if (ipad2Video) {
-        ipad2Video.src = 'assets/ipad_2.mp4';
-        ipad2Video.loop = true;
-        ipad2Video.muted = true;
-        ipad2Video.load();
-        ipad2Video.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
-      }
-      const continueButtonsContainer = document.getElementById('continue-buttons-container');
-      if (continueButtonsContainer) {
-        continueButtonsContainer.style.display = 'none';
-      }
-      const continueButton = document.getElementById('continue-button');
-      if (continueButton) {
-        continueButton.style.display = 'block';
-      }
-      const inputSection = document.getElementById('input-section');
-      if (inputSection) {
-        inputSection.style.display = 'block';
-      }
-    };
-    startButton.addEventListener('click', switchToIpad2);
-    startButton.addEventListener('touchstart', switchToIpad2);
-  }
-}
-
-// Add event listeners to the three buttons in main-content continue-buttons-container
-const mainContentContinueButtonsContainer = document.querySelector('#main-content #continue-buttons-container');
-const mainContentContinueButtons = mainContentContinueButtonsContainer ? mainContentContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
-
-mainContentContinueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
-
-// Add event listener to the single continue button in main-content
-const continueButton = document.getElementById('continue-button');
-if (continueButton) {
-  continueButton.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
 
 // Begleit-Ton für Prophezeiungsvideos
 let prophecyAudio = null;
@@ -273,158 +214,48 @@ window.addEventListener('load', () => {
   };
   window.addEventListener('click', unlockMedia);
   window.addEventListener('touchstart', unlockMedia);
+
+  // Reload ipad_1 and ipad_2 videos dynamically
+  reloadVideos();
 });
 
-const startscreenButton = document.getElementById('startscreen-button');
-if (startscreenButton) {
-  startscreenButton.style.display = 'block';
-  // Add event listeners to switch to ipad_2 video page on click or touch
-  const switchToIpad2 = (event) => {
-    event.preventDefault();
-    const startscreen = document.getElementById('startscreen');
-    const mainContent = document.getElementById('main-content');
-    startscreen.style.display = 'none';
-    mainContent.style.display = 'block';
-    const backgroundVideo = document.getElementById('background-video');
-    if (backgroundVideo) {
-      backgroundVideo.src = 'assets/ipad_2.mp4';
-      backgroundVideo.loop = true;
-      backgroundVideo.muted = true;
-      backgroundVideo.load();
-      backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
-    }
-    const continueButtonsContainer = document.getElementById('continue-buttons-container');
-    if (continueButtonsContainer) {
-      continueButtonsContainer.style.display = 'none';
-    }
-    const continueButton = document.getElementById('continue-button');
-    if (continueButton) {
-      continueButton.style.display = 'block';
-    }
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  };
-  startscreenButton.addEventListener('click', switchToIpad2);
-  startscreenButton.addEventListener('touchstart', switchToIpad2);
-}
-
-// Handle Continue buttons click
-const continueButtons = document.querySelectorAll('#continue-buttons-container button.startscreen-button-ipad2');
-continueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // You can add specific behavior for each button here if needed
-    // For now, all buttons perform the same action: show input section
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
-
-// New event listeners for buttons on startscreen
-const startscreenContinueButtonsContainer = document.querySelector('#startscreen #continue-buttons-container');
-const startscreenContinueButtons = startscreenContinueButtonsContainer ? startscreenContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
-
-startscreenContinueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
-
-const startscreenButton = document.getElementById('startscreen-button');
-if (startscreenButton) {
-  startscreenButton.style.display = 'block';
-  // Add event listeners to switch to ipad_2 video page on click or touch
-  const switchToIpad2 = (event) => {
-    event.preventDefault();
-    const startscreen = document.getElementById('startscreen');
-    const mainContent = document.getElementById('main-content');
-    startscreen.style.display = 'none';
-    mainContent.style.display = 'block';
-    const backgroundVideo = document.getElementById('background-video');
-    if (backgroundVideo) {
-      backgroundVideo.src = 'assets/ipad_2.mp4';
-      backgroundVideo.loop = true;
-      backgroundVideo.muted = true;
-      backgroundVideo.load();
-      backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
-    }
-    const continueButtonsContainer = document.getElementById('continue-buttons-container');
-    if (continueButtonsContainer) {
-      continueButtonsContainer.style.display = 'none';
-    }
-    const continueButton = document.getElementById('continue-button');
-    if (continueButton) {
-      continueButton.style.display = 'block';
-    }
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  };
-  startscreenButton.addEventListener('click', switchToIpad2);
-  startscreenButton.addEventListener('touchstart', switchToIpad2);
-}
-
-// Continue button on ipad_2 video clicked: play new video like ipad_1 video
-if (ipad2Button) {
-  ipad2Button.addEventListener('click', () => {
-    ipad2Video.pause();
-    ipad2Video.src = ipadSelectVideoSrc;
-    ipad2Video.loop = false;
-    ipad2Video.muted = true;
-    ipad2Video.load();
-    ipad2Video.play().catch(e => console.warn('ipad_select_offering video konnte nicht abgespielt werden:', e));
-  });
-}
-
-// Handle Check button click
-const checkButton = document.getElementById('check-button');
-if (checkButton) {
-  checkButton.addEventListener('click', () => {
-    const dataInput = document.getElementById('data-input');
-    if (!dataInput) return;
-    const inputValue = dataInput.value.trim();
-    if (!inputValue) {
-      alert('Please enter a data offering.');
-      return;
-    }
-
-    // Store selected data offering
-    localStorage.setItem('selectedDataOffering', inputValue);
-
-    // Play random video on right side similar to coins
-    playRandomVideoForDataOffering(inputValue);
-  });
-}
-
-// Function to play random video on right side based on data offering
-function playRandomVideoForDataOffering(dataOffering) {
-  const video = document.getElementById('video');
-  if (!video) return;
-
-  // Define videos for data offerings (example)
-  const videosMap = {
-    A: ['assets/videoA1.mp4', 'assets/videoA2.mp4', 'assets/videoA3.mp4'],
-    B: ['assets/videoB1.mp4', 'assets/videoB2.mp4', 'assets/videoB3.mp4'],
-    C: ['assets/videoC1.mp4', 'assets/videoC2.mp4', 'assets/videoC3.mp4']
-  };
-
-  const videos = videosMap[dataOffering.toUpperCase()];
-  if (!videos || videos.length === 0) {
-    alert('No videos found for the selected data offering.');
-    return;
+// Function to reload ipad_1 and ipad_2 videos dynamically
+function reloadVideos() {
+  // Reload startscreen-video (ipad_1)
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    let src = startscreenVideo.querySelector('source').src;
+    // Add cache buster query param
+    src = src.split('?')[0] + '?v=' + Date.now();
+    startscreenVideo.pause();
+    startscreenVideo.src = '';
+    startscreenVideo.load();
+    startscreenVideo.src = src;
+    startscreenVideo.load();
+    startscreenVideo.play().catch(e => console.warn('Startscreen video reload failed:', e));
   }
 
-  const randomVideo = videos[Math.floor(Math.random() * videos.length)];
-  video.src = randomVideo;
-  video.loop = false;
-  video.muted = true;
-  video.load();
-  video.play().catch(e => console.warn('Video playback failed:', e));
+  // Reload all background-video elements (ipad_2)
+  const backgroundVideos = document.querySelectorAll('video#background-video');
+  backgroundVideos.forEach(videoEl => {
+    const sourceEl = videoEl.querySelector('source');
+    if (sourceEl) {
+      let src = sourceEl.src;
+      // Add cache buster query param
+      src = src.split('?')[0] + '?v=' + Date.now();
+      videoEl.pause();
+      videoEl.src = '';
+      videoEl.load();
+      videoEl.src = src;
+      videoEl.load();
+      videoEl.play().catch(e => console.warn('Background video reload failed:', e));
+    }
+  });
 }
+
+// Start-Button gedrückt: Wechsel zum Hauptinhalt
+startButton.addEventListener('click', () => {
+  startscreen.style.display = 'none';
+  mainContent.style.display = 'block';
+  startScreensaver();
+});
