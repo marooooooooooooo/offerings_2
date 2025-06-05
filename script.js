@@ -257,7 +257,3 @@ function reloadVideos() {
 if (startButton) {
   startButton.addEventListener('click', () => {
     startscreen.style.display = 'none';
-    mainContent.style.display = 'block';
-    startScreensaver();
-  });
-}
