@@ -39,7 +39,22 @@ body {
 }
 
 #startscreen-button {
-  display: none;
+  display: block;
+  background-color: transparent;
+  color: white;
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10000;
+  /* Ensure text color is white and no blue background */
+  background: none;
+  outline: none;
+  box-shadow: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 #continue-buttons-container {
