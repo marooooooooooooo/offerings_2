@@ -21,8 +21,8 @@ body {
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   box-sizing: border-box;
 }
 
@@ -32,8 +32,8 @@ body {
   height: auto; /* Höhe auf auto setzen, damit sich die Höhe nach Inhalt richtet */
   display: flex; /* Beibehalten, da es im Inline-Stil war */
   flex-direction: column; /* Beibehalten */
-  align-items: center; /* Beibehalten */
-  justify-content: center; /* Beibehalten */
+  align-items: flex-start;
+  justify-content: flex-start;
   overflow: visible; /* Overflow auf sichtbar setzen, damit Video nicht abgeschnitten wird */
 }
 
