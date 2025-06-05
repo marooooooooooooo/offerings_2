@@ -39,13 +39,13 @@ body {
 
 /* Styling für das Startscreen-Video */
 #startscreen-video {
-  position: relative;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: auto;
   object-fit: contain;
-  z-index: 2;
+  z-index: 9999;
 }
 
 .choose-text {
