@@ -11,39 +11,6 @@ const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toStr
 const startscreen = document.getElementById('startscreen');
 const startButton = document.getElementById('start-button');
 const mainContent = document.getElementById('main-content');
-const ipad2Button = document.getElementById('startscreen-button-ipad2');
-const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
-const ipad1Video = document.getElementById('startscreen-video');
-const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-// Show the single start button on startscreen
-const oldStartscreenButton = document.getElementById('startscreen-button');
-if (oldStartscreenButton) {
-  oldStartscreenButton.style.display = 'block';
-}
-
-// Add event listeners to the three buttons in main-content continue-buttons-container
-const mainContentContinueButtonsContainer = document.querySelector('#main-content #continue-buttons-container');
-const mainContentContinueButtons = mainContentContinueButtonsContainer ? mainContentContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
-
-mainContentContinueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
-
-// Add event listener to the single continue button in main-content
-const continueButton = document.getElementById('continue-button');
-if (continueButton) {
-  continueButton.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
 
 // Begleit-Ton für Prophezeiungsvideos
 let prophecyAudio = null;
@@ -95,22 +62,22 @@ ws.onmessage = (event) => {
       if (!data.video) return;
       const delay = data.startTime - Date.now();
       setTimeout(() => {
-      video.src = data.video;
-      video.loop = false;
-      video.muted = true; // Immer muted!
-      video.style.display = 'block';
-      video.load();
-      video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
-      chooseText.textContent = `Prophecy for coin ${data.coin}`;
+        video.src = data.video;
+        video.loop = false;
+        video.muted = true; // Immer muted!
+        video.style.display = 'block';
+        video.load();
+        video.play().catch(e => console.warn('Prophezeiungsvideo konnte nicht abgespielt werden:', e));
+        chooseText.textContent = `Prophecy for coin ${data.coin}`;
 
-      // Begleit-Ton für videoA1.mp4 abspielen
-      if (data.video.includes('videoA1.mp4')) {
-        prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
-        prophecyAudio.currentTime = 0;
-        prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
-      } else {
-        prophecyAudio = null;
-      }
+        // Begleit-Ton für videoA1.mp4 abspielen
+        if (data.video.includes('videoA1.mp4')) {
+          prophecyAudio = new Audio('assets/begleit_ton_videoA1.mp3');
+          prophecyAudio.currentTime = 0;
+          prophecyAudio.play().catch(e => console.warn('Begleit-Ton konnte nicht abgespielt werden:', e));
+        } else {
+          prophecyAudio = null;
+        }
       }, Math.max(0, delay));
     }
 
@@ -147,19 +114,23 @@ ws.onmessage = (event) => {
 };
 
 function startScreensaver() {
-  video.src = 'assets/screensaver.mp4';
-  video.loop = true;
-  video.muted = true;
-  video.style.display = 'block';
-  video.load();
-  video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
-  // Screensaver-Audio nur hier starten!
-  screensaverAudio.currentTime = 0;
-  screensaverAudio.play().catch(e => console.warn('Screensaver-Audio konnte nicht abgespielt werden:', e));
-  claimButton.style.display = 'none';
-  chooseText.textContent = 'Select a data offering to proceed';
-  coins.forEach(coin => coin.style.visibility = 'visible');
-  ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
+// iPad-Erkennung (auch für neuere iPadOS mit Mac-UserAgent)
+const ua = navigator.userAgent || navigator.vendor || window.opera;
+const isIPad = (/iPad/.test(ua)) ||
+((/Macintosh/.test(ua) || /Mac OS/.test(ua)) && navigator.maxTouchPoints && navigator.maxTouchPoints > 1);
+video.src = isIPad ? 'assets/ipad_2.mp4' : 'assets/screensaver.mp4';
+video.loop = true;
+video.muted = true;
+video.style.display = 'block';
+video.load();
+video.play().catch(e => console.warn('Screensaver-Video konnte nicht abgespielt werden:', e));
+// Screensaver-Audio nur hier starten!
+screensaverAudio.currentTime = 0;
+screensaverAudio.play().catch(e => console.warn('Screensaver-Audio konnte nicht abgespielt werden:', e));
+claimButton.style.display = 'none';
+chooseText.textContent = 'Select a data offering to proceed';
+coins.forEach(coin => coin.style.visibility = 'visible');
+ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
 
 // Klick auf Münze
@@ -196,7 +167,6 @@ coins.forEach(coin => {
   });
 });
 
-/* Removed rotation class removals and additions as videos are pre-rotated in Dropbox */
 // Wenn Prophezeiungsvideo zu Ende ist
 video.addEventListener('ended', () => {
   // Nach Video-Ende: show_claim-Nachricht senden, damit der Claim-Button garantiert auf dem Sender-Gerät erscheint
@@ -248,137 +218,9 @@ window.addEventListener('load', () => {
   window.addEventListener('touchstart', unlockMedia);
 });
 
-// Startscreen-Button gedrückt: Wechsel zum Hauptinhalt
-if (startscreenButton) {
-  startscreenButton.addEventListener('click', (event) => {
-    event.preventDefault();
-    startscreen.style.display = 'none';
-    mainContent.style.display = 'block';
-    startScreensaver();
-
-    // Show input section on right side after Continue
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-}
-
-// Handle Continue buttons click
-const continueButtons = document.querySelectorAll('#continue-buttons-container button.startscreen-button-ipad2');
-continueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    // You can add specific behavior for each button here if needed
-    // For now, all buttons perform the same action: show input section
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
+// Start-Button gedrückt: Wechsel zum Hauptinhalt
+startButton.addEventListener('click', () => {
+  startscreen.style.display = 'none';
+  mainContent.style.display = 'block';
+  startScreensaver();
 });
-
-// New event listeners for buttons on startscreen
-const startscreenContinueButtonsContainer = document.querySelector('#startscreen #continue-buttons-container');
-const startscreenContinueButtons = startscreenContinueButtonsContainer ? startscreenContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
-
-startscreenContinueButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  });
-});
-
-const startscreenButton = document.getElementById('startscreen-button');
-if (startscreenButton) {
-  startscreenButton.style.display = 'block';
-  // Add event listeners to switch to ipad_2 video page on click or touch
-  const switchToIpad2 = (event) => {
-    event.preventDefault();
-    const startscreen = document.getElementById('startscreen');
-    const mainContent = document.getElementById('main-content');
-    startscreen.style.display = 'none';
-    mainContent.style.display = 'block';
-    const backgroundVideo = document.getElementById('background-video');
-    if (backgroundVideo) {
-      backgroundVideo.src = 'assets/ipad_2.mp4';
-      backgroundVideo.loop = true;
-      backgroundVideo.muted = true;
-      backgroundVideo.load();
-      backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
-    }
-    const continueButtonsContainer = document.getElementById('continue-buttons-container');
-    if (continueButtonsContainer) {
-      continueButtonsContainer.style.display = 'none';
-    }
-    const continueButton = document.getElementById('continue-button');
-    if (continueButton) {
-      continueButton.style.display = 'block';
-    }
-    const inputSection = document.getElementById('input-section');
-    if (inputSection) {
-      inputSection.style.display = 'block';
-    }
-  };
-  startscreenButton.addEventListener('click', switchToIpad2);
-  startscreenButton.addEventListener('touchstart', switchToIpad2);
-}
-
-// Continue button on ipad_2 video clicked: play new video like ipad_1 video
-if (ipad2Button) {
-  ipad2Button.addEventListener('click', () => {
-    ipad2Video.pause();
-    ipad2Video.src = ipadSelectVideoSrc;
-    ipad2Video.loop = false;
-    ipad2Video.muted = true;
-    ipad2Video.load();
-    ipad2Video.play().catch(e => console.warn('ipad_select_offering video konnte nicht abgespielt werden:', e));
-  });
-}
-
-// Handle Check button click
-const checkButton = document.getElementById('check-button');
-if (checkButton) {
-  checkButton.addEventListener('click', () => {
-    const dataInput = document.getElementById('data-input');
-    if (!dataInput) return;
-    const inputValue = dataInput.value.trim();
-    if (!inputValue) {
-      alert('Please enter a data offering.');
-      return;
-    }
-
-    // Store selected data offering
-    localStorage.setItem('selectedDataOffering', inputValue);
-
-    // Play random video on right side similar to coins
-    playRandomVideoForDataOffering(inputValue);
-  });
-}
-
-// Function to play random video on right side based on data offering
-function playRandomVideoForDataOffering(dataOffering) {
-  const video = document.getElementById('video');
-  if (!video) return;
-
-  // Define videos for data offerings (example)
-  const videosMap = {
-    A: ['assets/videoA1.mp4', 'assets/videoA2.mp4', 'assets/videoA3.mp4'],
-    B: ['assets/videoB1.mp4', 'assets/videoB2.mp4', 'assets/videoB3.mp4'],
-    C: ['assets/videoC1.mp4', 'assets/videoC2.mp4', 'assets/videoC3.mp4']
-  };
-
-  const videos = videosMap[dataOffering.toUpperCase()];
-  if (!videos || videos.length === 0) {
-    alert('No videos found for the selected data offering.');
-    return;
-  }
-
-  const randomVideo = videos[Math.floor(Math.random() * videos.length)];
-  video.src = randomVideo;
-  video.loop = false;
-  video.muted = true;
-  video.load();
-  video.play().catch(e => console.warn('Video playback failed:', e));
-}
