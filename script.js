@@ -253,9 +253,18 @@ function reloadVideos() {
   });
 }
 
-// Start-Button gedrückt: Wechsel zum Hauptinhalt
-startButton.addEventListener('click', () => {
-  startscreen.style.display = 'none';
-  mainContent.style.display = 'block';
-  startScreensaver();
-});
+if (startButton) {
+  startButton.addEventListener('click', () => {
+    startscreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    startScreensaver();
+  });
+}
+
+const startButtonIpad2 = document.getElementById('start-button-ipad2');
+if (startButtonIpad2) {
+  startButtonIpad2.addEventListener('click', () => {
+    // Define behavior for ipad_2 start button, e.g., start screensaver or other action
+    startScreensaver();
+  });
+}
