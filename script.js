@@ -264,7 +264,7 @@ if (startButton) {
 const startButtonIpad2 = document.getElementById('start-button-ipad2');
 if (startButtonIpad2) {
   startButtonIpad2.addEventListener('click', () => {
-    // Define behavior for ipad_2 start button, e.g., start screensaver or other action
-    startScreensaver();
+    // Navigate to the provided URL on button click
+    window.location.href = 'https://www.dropbox.com/scl/fi/kczs0o05c5om6zvqkwche/ipad_select_offering.mp4?rlkey=rddoax5eunyqdi2nwepk9847y&st=6n7yozp6&dl=0';
   });
 }
