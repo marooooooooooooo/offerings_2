@@ -15,11 +15,9 @@
         <source src="assets/ipad_1.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
-      <div id="continue-buttons-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 10;">
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">1</span></button>
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">2</span></button>
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">3</span></button>
-      </div>
+      <button id="startscreen-button" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; padding: 0; border: none; background: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000;">
+        <span class="start-text">Start</span>
+      </button>
     </div>
     <!-- Main Content (Coins and Claim Button, initial versteckt) -->
     <div id="main-content" style="display: none; position: relative; overflow: visible; width: 1200px; height: 768px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
