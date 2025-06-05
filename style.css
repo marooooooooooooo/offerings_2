@@ -3,9 +3,8 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  /* min-width und min-height könnten angepasst werden, je nach gewünschtem Verhalten */
-  /* min-width: 4864px; /* 1024 + 3840 */
-  /* min-height: 2160px; /* Höhe der rechten Seite */
+  min-width: 4864px; /* 1024 + 3840 */
+  min-height: 1668px; /* Höhe der rechten Seite */
   background-color: white; /* Weißer Rand rechts */
   font-family: sans-serif;
   overflow: auto;
@@ -16,8 +15,8 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1204px; /* Breite um 100px erhöht */
-  height: 100%; /* Ändern, um den gesamten verfügbaren Platz einzunehmen */
+  width: 1024px;
+  height: 768px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -26,27 +25,28 @@ body {
   box-sizing: border-box;
 }
 
-/* Startscreen Styling */
 #startscreen {
-  width: 100%; /* Sicherstellen, dass der Startscreen die volle Breite einnimmt (jetzt 100% von 1024px) */
-  height: auto; /* Höhe auf auto setzen, damit sich die Höhe nach Inhalt richtet */
-  display: flex; /* Beibehalten, da es im Inline-Stil war */
-  flex-direction: column; /* Beibehalten */
-  align-items: center; /* Beibehalten */
-  justify-content: center; /* Beibehalten */
-  overflow: visible; /* Overflow auf sichtbar setzen, damit Video nicht abgeschnitten wird */
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 1024px;
+  height: 768px;
+  /* Remove overflow hidden to allow video to overflow */
+  overflow: visible;
 }
 
-/* Styling für das Startscreen-Video */
 #startscreen-video {
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
+  width: 2388px;
+  height: 1668px;
+  object-fit: cover;
   z-index: 2;
 }
+
 
 .choose-text {
   color: rgb(0, 0, 0);
@@ -75,13 +75,14 @@ body {
   transform: scale(1.1);
 }
 
+
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
   position: absolute;
-  left: 1024px;   /* Direkt rechts neben der linken Seite! */
+  left: 2388px;   /* Direkt rechts neben der linken Seite! */
   top: 0;
-  width: 3840px;
-  height: 2160px;
+  width: 2476px;
+  height: 1668px;
   background-color: #000;
   display: flex;
   align-items: center;
