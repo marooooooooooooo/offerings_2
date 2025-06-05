@@ -16,7 +16,7 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1204px; /* Breite um 60px reduziert */
+  width: 1104px; /* Breite um 100px reduziert */
   height: 100%; /* Ändern, um den gesamten verfügbaren Platz einzunehmen */
   background-color: #ffffff;
   display: flex;
