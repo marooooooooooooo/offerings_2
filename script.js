@@ -248,20 +248,39 @@ window.addEventListener('load', () => {
   window.addEventListener('touchstart', unlockMedia);
 });
 
-// Startscreen-Button gedrückt: Wechsel zum Hauptinhalt
+const startscreenButton = document.getElementById('startscreen-button');
 if (startscreenButton) {
-  startscreenButton.addEventListener('click', (event) => {
+  startscreenButton.style.display = 'block';
+  // Add event listeners to switch to ipad_2 video page on click or touch
+  const switchToIpad2 = (event) => {
     event.preventDefault();
+    const startscreen = document.getElementById('startscreen');
+    const mainContent = document.getElementById('main-content');
     startscreen.style.display = 'none';
     mainContent.style.display = 'block';
-    startScreensaver();
-
-    // Show input section on right side after Continue
+    const backgroundVideo = document.getElementById('background-video');
+    if (backgroundVideo) {
+      backgroundVideo.src = 'assets/ipad_2.mp4';
+      backgroundVideo.loop = true;
+      backgroundVideo.muted = true;
+      backgroundVideo.load();
+      backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
+    }
+    const continueButtonsContainer = document.getElementById('continue-buttons-container');
+    if (continueButtonsContainer) {
+      continueButtonsContainer.style.display = 'none';
+    }
+    const continueButton = document.getElementById('continue-button');
+    if (continueButton) {
+      continueButton.style.display = 'block';
+    }
     const inputSection = document.getElementById('input-section');
     if (inputSection) {
       inputSection.style.display = 'block';
     }
-  });
+  };
+  startscreenButton.addEventListener('click', switchToIpad2);
+  startscreenButton.addEventListener('touchstart', switchToIpad2);
 }
 
 // Handle Continue buttons click
