@@ -254,8 +254,10 @@ function reloadVideos() {
 }
 
 // Start-Button gedrückt: Wechsel zum Hauptinhalt
-startButton.addEventListener('click', () => {
-  startscreen.style.display = 'none';
-  mainContent.style.display = 'block';
-  startScreensaver();
-});
+if (startButton) {
+  startButton.addEventListener('click', () => {
+    startscreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    startScreensaver();
+  });
+}
