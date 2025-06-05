@@ -15,7 +15,25 @@ const ipad2Button = document.getElementById('startscreen-button-ipad2');
 const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
 const ipad1Video = document.getElementById('startscreen-video');
 const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-const startscreenButton = document.getElementById('startscreen-button');
+// Remove event listener on the old single startscreen button if exists
+const oldStartscreenButton = document.getElementById('startscreen-button');
+if (oldStartscreenButton) {
+  oldStartscreenButton.style.display = 'none';
+  oldStartscreenButton.replaceWith(oldStartscreenButton.cloneNode(true)); // Remove all event listeners
+}
+
+// Add event listeners to the three buttons on the startscreen
+const startscreenContinueButtonsContainer = document.querySelector('#startscreen #continue-buttons-container');
+const startscreenContinueButtons = startscreenContinueButtonsContainer ? startscreenContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
+
+startscreenContinueButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
+  });
+});
 
 // Begleit-Ton für Prophezeiungsvideos
 let prophecyAudio = null;
@@ -234,6 +252,38 @@ if (startscreenButton) {
       inputSection.style.display = 'block';
     }
   });
+}
+
+// Handle Continue buttons click
+const continueButtons = document.querySelectorAll('#continue-buttons-container button.startscreen-button-ipad2');
+continueButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    // You can add specific behavior for each button here if needed
+    // For now, all buttons perform the same action: show input section
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
+  });
+});
+
+// New event listeners for buttons on startscreen
+const startscreenContinueButtonsContainer = document.querySelector('#startscreen #continue-buttons-container');
+const startscreenContinueButtons = startscreenContinueButtonsContainer ? startscreenContinueButtonsContainer.querySelectorAll('button.startscreen-button-ipad2') : [];
+
+startscreenContinueButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
+  });
+});
+
+// Hide the old single startscreen button
+const startscreenButton = document.getElementById('startscreen-button');
+if (startscreenButton) {
+  startscreenButton.style.display = 'none';
 }
 
 // Continue button on ipad_2 video clicked: play new video like ipad_1 video
