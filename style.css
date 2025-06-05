@@ -217,8 +217,8 @@ n, um den gesamten verfügbaren Platz einzunehmen */
   top: 0;
   left: 0;
   width: 100%;
-  height: auto;
-  object-fit: contain;
+  height: 100%;
+  object-fit: contain; /* Geändert von 'cover' zu 'contain' */
   z-index: 2;
 }
 
