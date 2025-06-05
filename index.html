@@ -1,3 +1,101 @@
+/* Grundlayout */
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-width: 4864px; /* 1024 + 3840 */
+  min-height: 2160px; /* Höhe der rechten Seite */
+  background-color: white; /* Weißer Rand rechts */
+  font-family: sans-serif;
+  overflow: auto;
+}
+
+/* Linke Seite (Buttons) */
+.left-side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1024px;
+  height: 768px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.choose-text {
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif; /* Google Font hinzufügen */
+}
+
+/* Münzen */
+.coin-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.coin {
+  width: 100px;
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.coin:hover {
+  transform: scale(1.1);
+}
+
+/* Rechte Seite (Prophezeiungen) */
+.right-side {
+  position: absolute;
+  left: 1024px;   /* Direkt rechts neben der linken Seite! */
+  top: 0;
+  width: 3840px;
+  height: 2160px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Screensaver und Video */
+#screensaver {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-player {
+  max-width: 100%;
+  max-height: 100%;
+  display: none; /* Standardmäßig ausgeblendet */
+  object-fit: contain;
+  position: absolute;
+  opacity: 0; /* Unsichtbar starten */
+  animation: fadeIn 1s ease-in-out forwards; /* Fade-In-Effekt */
+}
+
+#claim-button {
+  font-size: 1.5rem; /* Größerer Text */
+  padding: 15px 30px; /* Mehr Innenabstand */
+  background-color: #ffcc00; /* Auffällige Hintergrundfarbe */
+  color: #000000; /* Textfarbe */
+  border: none; /* Kein Rahmen */
+  border-radius: 10px; /* Abgerundete Ecken */
+  cursor: pointer; /* Zeigt an, dass es klickbar ist */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Schatten für 3D-Effekt */
+  transition: transform 0.2s, box-shadow 0.2s; /* Animation bei Hover */
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,13 +113,21 @@
         <source src="assets/ipad_1.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
-      <button id="startscreen-button" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; padding: 0; border: none; background: none; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10000;">
-        <span class="start-text">Start</span>
-      </button>
+      <button id="startscreen-button" style="margin-top: -50px; background-color: transparent; color: white; font-size: 1.5rem; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; z-index: 10;"><span class="start-text">Start</span></button>
     </div>
     <!-- Main Content (Coins and Claim Button, initial versteckt) -->
-    <div id="main-content" style="display: none; position: relative; overflow: visible; width: 1200px; height: 768px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-      <video id="background-video" autoplay muted loop playsinline style="width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+    <div id="main-content" style="display: none; position: relative; overflow: hidden; width: 1024px; height: 768px;">
+      <video id="background-video" autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
+        <source src="assets/ipad_2.mp4" type="video/mp4">
+        Dein Browser unterstützt das Video-Tag nicht.
+      </video>
+      <h2 class="choose-text">Select a data offering to proceed</h2>
+      <div class="coin-container">
+        <img src="assets/coin1.svg" class="coin" data-button="A" tabindex="0" />
+        <img src="assets/coin2.svg" class="coin" data-button="B" tabindex="0" />
+        <img src="assets/coin3.svg" class="coin" data-button="C" tabindex="0" />
+      </div>
+      <video id="background-video" autoplay muted loop playsinline style="width: 100%; height: 400px; margin-top: 10px; object-fit: contain;">
         <source src="assets/ipad_2.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
@@ -34,13 +140,6 @@
       Dein Browser unterstützt das Video-Tag nicht.
     </video>
     <div id="video-glow" class="video-glow"></div>
-  </div>
-
-  <!-- New input section shown after Continue -->
-  <div id="input-section" style="display:none; background-color: #333; color: white; padding: 20px; width: 400px; position: absolute; top: 50px; right: 20px; border-radius: 10px;">
-    <label for="data-input" style="display:block; margin-bottom: 10px;">Enter your data offering:</label>
-    <input type="text" id="data-input" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: none;">
-    <button id="check-button" style="padding: 10px 20px; border: none; border-radius: 5px; background-color: #ffcc00; color: black; cursor: pointer;">Check</button>
   </div>
   <audio id="coin-sound" src="assets/coin.mp3" preload="auto"></audio>
   <audio id="screensaver-audio" src="assets/audioA1.mp3" loop preload="auto"></audio>
