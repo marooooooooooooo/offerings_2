@@ -15,7 +15,11 @@
         <source src="assets/ipad_1.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
-      <button id="startscreen-button" style="margin-top: -50px; background-color: transparent; color: white; font-size: 1.5rem; padding: 15px 30px; border: none; border-radius: 10px; cursor: pointer; z-index: 10;"><span class="start-text">Start</span></button>
+      <div id="continue-buttons-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 10;">
+        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">1</span></button>
+        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">2</span></button>
+        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">3</span></button>
+      </div>
     </div>
     <!-- Main Content (Coins and Claim Button, initial versteckt) -->
     <div id="main-content" style="display: none; position: relative; overflow: visible; width: 1200px; height: 768px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
@@ -23,12 +27,6 @@
         <source src="assets/ipad_2.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
-      <div id="continue-buttons-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 100%; display: flex; justify-content: center; gap: 10px; z-index: 10; display: none;">
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">1</span></button>
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">2</span></button>
-        <button class="startscreen-button-ipad2" style="flex: 1; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;"><span class="start-text">3</span></button>
-      </div>
-      <button id="continue-button" style="display: none; font-size: 1.5rem; padding: 15px 30px; background-color: transparent; color: #fff; border: none; border-radius: 10px; cursor: pointer;">Continue</button>
       <button id="claim-button" style="display: none;">I Claim</button>
     </div>
   </div>
