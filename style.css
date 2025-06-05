@@ -211,3 +211,8 @@ body.hide-left {
   min-width: 4864px !important;
   width: 4864px !important;
 }
+
+#startscreen-button .start-text {
+  display: inline-block;
+  margin-top: 300px;
+}
