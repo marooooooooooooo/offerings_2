@@ -3,8 +3,9 @@ body {
   margin: 0;
   padding: 0;
   position: relative;
-  min-width: 4864px; /* 1024 + 3840 */
-  min-height: 2160px; /* Höhe der rechten Seite */
+  /* min-width und min-height könnten angepasst werden, je nach gewünschtem Verhalten */
+  /* min-width: 4864px; /* 1024 + 3840 */ */
+  /* min-height: 2160px; /* Höhe der rechten Seite */ */
   background-color: white; /* Weißer Rand rechts */
   font-family: sans-serif;
   overflow: auto;
@@ -15,8 +16,8 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 1024px;
-  height: 768px;
+  width: 100%; /* Ändern, um den gesamten verfügbaren Platz einzunehmen */
+  height: 100%; /* Ändern, um den gesamten verfügbaren Platz einzunehmen */
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -24,6 +25,18 @@ body {
   justify-content: center;
   box-sizing: border-box;
 }
+
+/* Startscreen Styling */
+#startscreen {
+  width: 100%; /* Sicherstellen, dass der Startscreen die volle Breite einnimmt */
+  height: 100%; /* Sicherstellen, dass der Startscreen die volle Höhe einnimmt */
+  display: flex; /* Beibehalten, da es im Inline-Stil war */
+  flex-direction: column; /* Beibehalten */
+  align-items: center; /* Beibehalten */
+  justify-content: center; /* Beibehalten */
+  overflow: hidden; /* Beibehalten */
+}
+
 
 .choose-text {
   color: rgb(0, 0, 0);
@@ -148,4 +161,3 @@ body.hide-left {
   min-width: 4864px !important;
   width: 4864px !important;
 }
-
