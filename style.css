@@ -88,8 +88,8 @@ body {
   position: relative;
   top: 0;
   left: 0;
-  width: 2388px;
-  height: 1668px;
+  width: 120%;
+  height: 120%;
   object-fit: cover;
   z-index: 2;
 }
