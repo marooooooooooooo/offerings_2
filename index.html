@@ -10,10 +10,10 @@
 <body>
   <div class="left-side">
     <!-- Startscreen (sichtbar beim Laden) -->
-  <div id="startscreen" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 1024px; height: 768px; overflow: hidden;">
+  <div id="startscreen" style="position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;">
       <video id="startscreen-video" autoplay muted loop playsinline style="position: relative; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;">
         <source src="assets/ipad_1.mp4" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht.
+        Dein Browser unterstützt das Video-Tag nicht.\n
       </video>
       <button id="start-button" style="position: relative; font-size: 1.5rem; padding: 15px 30px; background-color: #ffcc00; color: #000; border: none; border-radius: 10px; cursor: pointer; z-index: 1;">Start</button>
     </div>
@@ -21,17 +21,17 @@
     <div id="main-content" style="display: none; position: relative; overflow: hidden; width: 1024px; height: 768px;">
       <video id="background-video" autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
         <source src="assets/ipad_2.mp4" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht.
+        Dein Browser unterstützt das Video-Tag nicht.\n
       </video>
       <h2 class="choose-text">Select a data offering to proceed</h2>
-      <div class="coin-container">
-        <img src="assets/coin1.svg" class="coin" data-button="A" tabindex="0" />
-        <img src="assets/coin2.svg" class="coin" data-button="B" tabindex="0" />
-        <img src="assets/coin3.svg" class="coin" data-button="C" tabindex="0" />
+      <div class="coin-container">\n
+        <img src="assets/coin1.svg" class="coin" data-button="A" tabindex="0" />\n
+        <img src="assets/coin2.svg" class="coin" data-button="B" tabindex="0" />\n
+        <img src="assets/coin3.svg" class="coin" data-button="C" tabindex="0" />\n
       </div>
       <video id="background-video" autoplay muted loop playsinline style="width: 100%; height: 400px; margin-top: 10px; object-fit: contain;">
         <source src="assets/ipad_2.mp4" type="video/mp4">
-        Dein Browser unterstützt das Video-Tag nicht.
+        Dein Browser unterstützt das Video-Tag nicht.\n
       </video>
       <button id="claim-button" style="display: none;">I Claim</button>
     </div>
@@ -39,13 +39,13 @@
   <div class="right-side">
     <video id="video" autoplay muted loop width="400" playsinline>
       <source src="assets/screensaver.mp4" type="video/mp4">
-      Dein Browser unterstützt das Video-Tag nicht.
+      Dein Browser unterstützt das Video-Tag nicht.\n
     </video>
     <div id="video-glow" class="video-glow"></div>
   </div>
   <audio id="coin-sound" src="assets/coin.mp3" preload="auto"></audio>
   <audio id="screensaver-audio" src="assets/audioA1.mp3" loop preload="auto"></audio>
-  <audio id="click-sound" src="assets/click.mp3" preload="auto"></audio>
+  <audio id=\"click-sound\" src=\"assets/click.mp3\" preload=\"auto\"></audio>\n
   <audio id="claim-audio" src="assets/claim.mp3" preload="auto"></audio>
   <script src="script.js"></script>
 </body>
