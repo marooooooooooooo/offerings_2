@@ -54,6 +54,16 @@ body {
   z-index: 10;
 }
 
+#continue-button {
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
 #continue-buttons-container button {
   flex: 1;
   font-size: 1.5rem;
