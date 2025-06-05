@@ -11,6 +11,10 @@ const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toStr
 const startscreen = document.getElementById('startscreen');
 const startButton = document.getElementById('start-button');
 const mainContent = document.getElementById('main-content');
+const ipad2Button = document.getElementById('startscreen-button-ipad2');
+const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
+const ipad1Video = document.getElementById('startscreen-video');
+const ipad2Video = document.querySelector('#main-content video#background-video');
 const startscreenButton = document.getElementById('startscreen-button');
 
 // Begleit-Ton für Prophezeiungsvideos
@@ -223,5 +227,14 @@ if (startscreenButton) {
     startscreen.style.display = 'none';
     mainContent.style.display = 'block';
     startScreensaver();
+  });
+}
+
+// Continue button on ipad_2 video clicked: play new video like ipad_1 video
+if (ipad2Button) {
+  ipad2Button.addEventListener('click', () => {
+    ipad2Video.src = ipadSelectVideoSrc;
+    ipad2Video.load();
+    ipad2Video.play().catch(e => console.warn('ipad_select_offering video konnte nicht abgespielt werden:', e));
   });
 }
