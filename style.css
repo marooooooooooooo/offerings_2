@@ -4,7 +4,7 @@ body {
   padding: 0;
   position: relative;
   min-width: 4864px; /* 1024 + 3840 */
-  min-height: 1668px; /* Höhe der rechten Seite */
+  min-height: 2160px; /* Höhe der rechten Seite */
   background-color: white; /* Weißer Rand rechts */
   font-family: sans-serif;
   overflow: auto;
@@ -15,87 +15,15 @@ body {
   position: absolute;
   left: 0;
   top: 0;
-  width: 120%;
-  height: 120%;
+  width: 1024px;
+  height: 768px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
-
-#startscreen {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 140%;
-  height: 140%;
-  overflow: visible;
-  margin: 0;
-  padding: 0;
-}
-
-#startscreen-video {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  margin: 0;
-  padding: 0;
-}
-
-#startscreen {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 2388px;
-  height: 1668px;
-  overflow: hidden;
-}
-
-#startscreen-video {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 2388px;
-  height: auto; /* height flexible */
-  object-fit: cover;
-  z-index: 2;
-}
-
-#startscreen {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 2388px;
-  height: 1668px;
-  overflow: hidden;
-}
-
-#startscreen-video {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-  transform: scale(1.2);
-  transform-origin: center center;
-}
-
 
 .choose-text {
   color: rgb(0, 0, 0);
@@ -124,31 +52,19 @@ body {
   transform: scale(1.1);
 }
 
-
 /* Rechte Seite (Prophezeiungen) */
 .right-side {
   position: absolute;
-  left: 2600px;   /* Align with left container width */
+  left: 1024px;   /* Direkt rechts neben der linken Seite! */
   top: 0;
-  width: 2476px;
-  height: 1668px;
+  width: 3840px;
+  height: 2160px;
   background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-}
-
-#video {
-  width: 100%;
-  height: 100%;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: cover; /* Skaliert das Video maximal, füllt den Container */
-  display: block;
-  margin: 0; /* Remove centering margin */
-  background: black;
 }
 
 /* Screensaver und Video */
@@ -232,3 +148,4 @@ body.hide-left {
   min-width: 4864px !important;
   width: 4864px !important;
 }
+
