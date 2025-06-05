@@ -216,9 +216,12 @@ window.addEventListener('load', () => {
   window.addEventListener('touchstart', unlockMedia);
 });
 
-// Start-Button gedrückt: Wechsel zum Hauptinhalt
-startButton.addEventListener('click', () => {
-  startscreen.style.display = 'none';
-  mainContent.style.display = 'block';
-  startScreensaver();
-});
+// Startscreen-Button gedrückt: Wechsel zum Hauptinhalt
+if (startscreenButton) {
+  startscreenButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    startscreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    startScreensaver();
+  });
+}
