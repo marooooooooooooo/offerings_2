@@ -7,33 +7,28 @@ const coins = document.querySelectorAll('.coin');
 const chooseText = document.querySelector('.choose-text');
 const myClientId = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).substr(2, 9);
 
-// Startscreen-Elemente
 const startscreen = document.getElementById('startscreen');
-const startButton = document.getElementById('start-button');
 const mainContent = document.getElementById('main-content');
 const ipad2Button = document.getElementById('startscreen-button-ipad2');
 const ipadSelectVideoSrc = 'assets/ipad_select_offering.mp4';
 const ipad1Video = document.getElementById('startscreen-video');
 const ipad2Video = document.querySelector('#main-content video#background-video') || document.querySelector('#main-content video');
-let startButton = null;
+
 if (typeof window !== 'undefined') {
-  startButton = document.getElementById('start-button');
+  const startButton = document.getElementById('start-button');
   if (startButton) {
     startButton.style.display = 'block';
     // Add event listeners to switch to ipad_2 video page on click or touch
     const switchToIpad2 = (event) => {
       event.preventDefault();
-      const startscreen = document.getElementById('startscreen');
-      const mainContent = document.getElementById('main-content');
       startscreen.style.display = 'none';
       mainContent.style.display = 'block';
-      const backgroundVideo = document.getElementById('background-video');
-      if (backgroundVideo) {
-        backgroundVideo.src = 'assets/ipad_2.mp4';
-        backgroundVideo.loop = true;
-        backgroundVideo.muted = true;
-        backgroundVideo.load();
-        backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
+      if (ipad2Video) {
+        ipad2Video.src = 'assets/ipad_2.mp4';
+        ipad2Video.loop = true;
+        ipad2Video.muted = true;
+        ipad2Video.load();
+        ipad2Video.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
       }
       const continueButtonsContainer = document.getElementById('continue-buttons-container');
       if (continueButtonsContainer) {
