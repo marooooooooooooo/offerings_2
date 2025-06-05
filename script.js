@@ -290,10 +290,41 @@ startscreenContinueButtons.forEach(button => {
   });
 });
 
-// Hide the old single startscreen button
+// Show the old single startscreen button
 const startscreenButton = document.getElementById('startscreen-button');
 if (startscreenButton) {
-  startscreenButton.style.display = 'none';
+  startscreenButton.style.display = 'block';
+  // Add event listener to switch to ipad_2 video page on click
+  startscreenButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const startscreen = document.getElementById('startscreen');
+    const mainContent = document.getElementById('main-content');
+    startscreen.style.display = 'none';
+    mainContent.style.display = 'block';
+    // Change mainContent video to ipad_2 video
+    const backgroundVideo = document.getElementById('background-video');
+    if (backgroundVideo) {
+      backgroundVideo.src = 'assets/ipad_2.mp4';
+      backgroundVideo.loop = true;
+      backgroundVideo.muted = true;
+      backgroundVideo.load();
+      backgroundVideo.play().catch(e => console.warn('ipad_2 video konnte nicht abgespielt werden:', e));
+    }
+    // Hide the continue buttons container and show the continue button for ipad_2 video
+    const continueButtonsContainer = document.getElementById('continue-buttons-container');
+    if (continueButtonsContainer) {
+      continueButtonsContainer.style.display = 'none';
+    }
+    const continueButton = document.getElementById('continue-button');
+    if (continueButton) {
+      continueButton.style.display = 'block';
+    }
+    // Show input section on right side after Continue
+    const inputSection = document.getElementById('input-section');
+    if (inputSection) {
+      inputSection.style.display = 'block';
+    }
+  });
 }
 
 // Continue button on ipad_2 video clicked: play new video like ipad_1 video
