@@ -35,6 +35,22 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
   overflow: visible; /* Overflow auf sichtbar setzen, damit Video nicht abgeschnitten wird */
+  position: relative; /* Für absolute Positionierung des Buttons */
+}
+
+#start-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  padding: 15px 30px;
+  background-color: #ffcc00;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10000; /* Höher als das Video */
 }
 
 /* Styling für das Startscreen-Video */
