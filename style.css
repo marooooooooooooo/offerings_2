@@ -159,9 +159,9 @@ body.hide-left {
 }
 
 #intermediate-page {
-  display: none !important;
+  display: none;
 }
 
 #input-page {
-  display: none !important;
+  display: none;
 }
