@@ -264,6 +264,14 @@ window.addEventListener('load', () => {
     inputPage.classList.add('hidden-flicker');
   }
 
+  // Keep intermediate and input pages hidden-flicker for 5 seconds to prevent flicker
+  setTimeout(() => {
+    intermediatePage.classList.remove('hidden-flicker');
+    if (inputPage) {
+      inputPage.classList.remove('hidden-flicker');
+    }
+  }, 5000);
+
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
     video.muted = true;
