@@ -158,9 +158,9 @@ coins.forEach(coin => {
     window.selectedVideo = randomVideo;
 
     // Show input page and hide main content
-    mainContent.style.display = 'none';
+    mainContent.classList.add('hidden');
     const inputPage = document.getElementById('input-page');
-    inputPage.style.display = 'flex';
+    inputPage.classList.remove('hidden');
 
     // Clear previous input
     const prophecyInput = document.getElementById('prophecy-input');
@@ -171,7 +171,6 @@ coins.forEach(coin => {
   });
 });
 
-// Handle submit button on input page
 const submitProphecyButton = document.getElementById('submit-prophecy');
 submitProphecyButton.addEventListener('click', () => {
   const prophecyInput = document.getElementById('prophecy-input');
@@ -185,10 +184,10 @@ submitProphecyButton.addEventListener('click', () => {
 
   // Hide input page
   const inputPage = document.getElementById('input-page');
-  inputPage.style.display = 'none';
+  inputPage.classList.add('hidden');
 
   // Show main content and only the selected coin
-  mainContent.style.display = 'block';
+  mainContent.classList.remove('hidden');
   coins.forEach(c => {
     if (c.getAttribute('data-button') !== window.selectedCoin) {
       c.style.visibility = 'hidden';
@@ -252,14 +251,14 @@ claimButton.addEventListener('click', () => {
 // Seite lädt
 window.addEventListener('load', () => {
   // Nur Startscreen anzeigen, Hauptinhalt ausblenden
-  startscreen.style.display = 'flex';
-  mainContent.style.display = 'none';
-  intermediatePage.style.display = 'none';
+  startscreen.classList.remove('hidden');
+  mainContent.classList.add('hidden');
+  intermediatePage.classList.add('hidden');
 
   // Ensure input page is hidden on load
   const inputPage = document.getElementById('input-page');
   if (inputPage) {
-    inputPage.style.display = 'none';
+    inputPage.classList.add('hidden');
   }
 
   // Workaround für Autoplay-Restriktionen:
@@ -279,8 +278,8 @@ const intermediateVideo = document.getElementById('intermediate-video');
 
 // Start-Button gedrückt: Wechsel zur Zwischenseite
 startButton.addEventListener('click', () => {
-  startscreen.style.display = 'none';
-  intermediatePage.style.display = 'flex';
+  startscreen.classList.add('hidden');
+  intermediatePage.classList.remove('hidden');
   intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
 });
 
