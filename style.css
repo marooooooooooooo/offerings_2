@@ -49,6 +49,9 @@ body {
   border: 2px solid #ffcc00; /* Yellow border around clickable coin */
   border-radius: 50%; /* Circular border */
   box-sizing: border-box;
+  background-color: transparent; /* Make coin image background transparent */
+  color: transparent; /* Hide the image */
+  pointer-events: auto; /* Keep clickable */
 }
 
 .coin:hover {
