@@ -1,0 +1,31 @@
+.landing-page {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.landing-page .div {
+  background-color: #ffffff;
+  height: 4571px;
+  position: relative;
+  width: 5593px;
+}
+
+.landing-page .ipad-introduction {
+  height: 985px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 1667px;
+}
+
+.landing-page .prophechy {
+  height: 3840px;
+  left: 2593px;
+  position: absolute;
+  top: -840px;
+  transform: rotate(-90deg);
+  width: 2160px;
+}
