@@ -167,6 +167,12 @@ claimButton.addEventListener('click', () => {
 
   // Start screensaver
   startScreensaver();
+});intermediateVideo.addEventListener('ended', () => {
+  intermediatePage.classList.add('hidden');
+  mainContent.classList.remove('hidden');
+  // Play the next video here
+  const nextVideo = document.getElementById('background-video');
+  nextVideo.play().catch(e => console.warn('Next video playback failed:', e));
 });  coins.forEach(coin => coin.style.visibility = 'visible');
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
