@@ -205,6 +205,7 @@ window.addEventListener('load', () => {
   // Nur Startscreen anzeigen, Hauptinhalt ausblenden
   startscreen.style.display = 'flex';
   mainContent.style.display = 'none';
+  intermediatePage.style.display = 'none';
 
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
