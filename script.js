@@ -133,6 +133,7 @@ function startScreensaver() {
 // Klick auf Münze
 coins.forEach(coin => {
   coin.addEventListener('click', (event) => {
+    console.log('Coin clicked:', event.target.dataset.button);
     screensaverAudio.pause();
     screensaverAudio.currentTime = 0;
 
@@ -157,6 +158,7 @@ coins.forEach(coin => {
     clickSound.play().catch(e => console.warn('Klick-Sound konnte nicht abgespielt werden:', e));
 
     clickSound.onended = () => {
+      console.log('Click sound ended, sending WebSocket message for coin:', buttonType);
       const startTime = Date.now() + 1000; // 1 Sekunde Verzögerung
       ws.send(JSON.stringify({ type: 'coin', coin: buttonType, video: randomVideo, startTime, sender: myClientId }));
       // Kein setTimeout und kein video.play() hier!
