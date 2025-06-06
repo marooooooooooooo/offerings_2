@@ -119,6 +119,7 @@ function startScreensaver() {
 }
 
 startButton.addEventListener('click', () => {
+  console.log('Start button clicked'); // Debug log
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
   intermediateVideo.classList.remove('hidden');
