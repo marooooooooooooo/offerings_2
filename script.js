@@ -243,28 +243,8 @@ claimButton.addEventListener('click', () => {
   }
   ws.send(JSON.stringify({ type: 'claim' }));
 
-  // Nach Claim wieder zum Startscreen wechseln und alle Seiten zurücksetzen
-  mainContent.classList.add('hidden');
-  intermediatePage.classList.add('hidden');
-  const inputPage = document.getElementById('input-page');
-  if (inputPage) {
-    inputPage.classList.add('hidden');
-  }
-  startscreen.classList.remove('hidden');
-
-  // Reset videos and audio
-  video.pause();
-  video.currentTime = 0;
-  screensaverAudio.pause();
-  screensaverAudio.currentTime = 0;
-  claimAudio.pause();
-  claimAudio.currentTime = 0;
-
-  // Play startscreen video explicitly
-  const startscreenVideo = document.getElementById('startscreen-video');
-  if (startscreenVideo) {
-    startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
-  }
+  // Nach Claim Seite neu laden, um weißen Bildschirm zu vermeiden
+  window.location.reload();
 });
 
 // Seite lädt
