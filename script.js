@@ -122,6 +122,8 @@ startButton.addEventListener('click', () => {
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
   intermediateVideo.classList.remove('hidden');
+  intermediateVideo.currentTime = 0;
+  intermediateVideo.muted = true;
   intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
 });
 
