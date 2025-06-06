@@ -125,7 +125,40 @@ function startScreensaver() {
   screensaverAudio.currentTime = 0;
   screensaverAudio.play().catch(e => console.warn('Screensaver-Audio konnte nicht abgespielt werden:', e));
   claimButton.style.display = 'none';
-  coins.forEach(coin => coin.style.visibility = 'visible');
+claimButton.addEventListener('click', () => {
+  console.log('Claim button clicked: resetting UI to start screen');
+  claimButton.style.display = 'none';
+  claimAudio.pause();
+  claimAudio.currentTime = 0;
+  if (prophecyAudio) {
+    prophecyAudio.pause();
+    prophecyAudio.currentTime = 0;
+  }
+  ws.send(JSON.stringify({ type: 'claim' }));
+
+  // Reset UI to start screen without page reload
+  mainContent.classList.add('hidden');
+  intermediatePage.classList.add('hidden');
+  const inputPage = document.getElementById('input-page');
+  if (inputPage) {
+    inputPage.classList.add('hidden');
+  }
+  startscreen.classList.remove('hidden');
+
+  // Reset and play startscreen video
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    startscreenVideo.pause();
+    startscreenVideo.currentTime = 0;
+    startscreenVideo.muted = true;
+    startscreenVideo.style.display = 'block';
+    startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+  }
+
+  // Clear selected coin and video
+  window.selectedCoin = null;
+  window.selectedVideo = null;
+});  coins.forEach(coin => coin.style.visibility = 'visible');
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
 
