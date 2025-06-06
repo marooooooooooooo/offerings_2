@@ -161,6 +161,7 @@ coins.forEach(coin => {
     mainContent.classList.add('hidden');
     const inputPage = document.getElementById('input-page');
     inputPage.classList.remove('hidden');
+    inputPage.classList.remove('offscreen');
 
     // Clear previous input
     const prophecyInput = document.getElementById('prophecy-input');
@@ -254,11 +255,13 @@ window.addEventListener('load', () => {
   startscreen.classList.remove('hidden');
   mainContent.classList.add('hidden');
   intermediatePage.classList.add('hidden');
+  intermediatePage.classList.add('offscreen');
 
   // Ensure input page is hidden on load
   const inputPage = document.getElementById('input-page');
   if (inputPage) {
     inputPage.classList.add('hidden');
+    inputPage.classList.add('offscreen');
   }
 
   // Workaround für Autoplay-Restriktionen:
@@ -280,6 +283,7 @@ const intermediateVideo = document.getElementById('intermediate-video');
 startButton.addEventListener('click', () => {
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
+  intermediatePage.classList.remove('offscreen');
   intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
 });
 
