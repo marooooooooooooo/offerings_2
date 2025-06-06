@@ -256,6 +256,12 @@ window.addEventListener('load', () => {
   mainContent.style.display = 'none';
   intermediatePage.style.display = 'none';
 
+  // Ensure input page is hidden on load
+  const inputPage = document.getElementById('input-page');
+  if (inputPage) {
+    inputPage.style.display = 'none';
+  }
+
   // Workaround für Autoplay-Restriktionen:
   const unlockMedia = () => {
     video.muted = true;
