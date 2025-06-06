@@ -122,13 +122,16 @@ startButton.addEventListener('click', () => {
   console.log('Start button clicked'); // Debug log
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
+  console.log('Intermediate page hidden class present:', intermediatePage.classList.contains('hidden'));
   intermediatePage.style.display = 'flex'; // Ensure visible
   intermediateVideo.classList.remove('hidden');
   intermediateVideo.style.display = 'block'; // Ensure visible
   intermediateVideo.src = "https://www.dropbox.com/scl/fi/1ssoiwou4pft4t22ar3v8/ipad_2.mp4?rlkey=s2z8mhnof8j1r9c8ew3hzyugy&st=vaza6y7o&dl=1";
   intermediateVideo.currentTime = 0;
   intermediateVideo.muted = true;
-  intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
+  setTimeout(() => {
+    intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
+  }, 100);
   intermediateVideo.addEventListener('play', () => {
     console.log('Intermediate video started playing');
   });
