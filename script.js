@@ -158,6 +158,15 @@ claimButton.addEventListener('click', () => {
   // Clear selected coin and video
   window.selectedCoin = null;
   window.selectedVideo = null;
+});claimButton.addEventListener('click', () => {
+  // ... (rest of the code)
+
+  // Clear selected coin and video
+  window.selectedCoin = null;
+  window.selectedVideo = null;
+
+  // Start screensaver
+  startScreensaver();
 });  coins.forEach(coin => coin.style.visibility = 'visible');
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
