@@ -25,6 +25,31 @@ body {
   box-sizing: border-box;
 }
 
+#startscreen {
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  width: 100%;
+  height: 100%;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+#start-button {
+  margin: 0;
+  padding: 15px 30px;
+  background-color: #ffcc00;
+  color: #000;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 10;
+  position: relative;
+}
+
 .choose-text {
   color: rgb(0, 0, 0);
   font-size: 24px;
