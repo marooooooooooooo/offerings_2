@@ -161,3 +161,7 @@ body.hide-left {
 #intermediate-page {
   display: none !important;
 }
+
+#input-page {
+  display: none !important;
+}
