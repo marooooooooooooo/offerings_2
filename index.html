@@ -20,13 +20,20 @@
     </div>
     <!-- Main Content (Coins and Claim Button, initial versteckt) -->
     <div id="main-content" style="display: none; position: relative; overflow: hidden; width: 1024px; height: 768px;">
-      <video id="background-video" autoplay muted loop playsinline style="position: relative; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2;">
+      <video id="background-video" autoplay muted loop playsinline style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -1;">
         <source src="assets/ipad_2.mp4" type="video/mp4">
         Dein Browser unterstützt das Video-Tag nicht.
       </video>
-      
-      <button id="start-button-ipad2" style="position: relative; font-size: 1.5rem; padding: 15px 30px; background-color: #ffcc00; color: #000; border: none; border-radius: 10px; cursor: pointer; z-index: 1;">Start</button>
-      
+      <h2 class="choose-text">Select a data offering to proceed</h2>
+      <div class="coin-container">
+        <img src="assets/coin1.svg" class="coin" data-button="A" tabindex="0" />
+        <img src="assets/coin2.svg" class="coin" data-button="B" tabindex="0" />
+        <img src="assets/coin3.svg" class="coin" data-button="C" tabindex="0" />
+      </div>
+      <video id="background-video" autoplay muted loop playsinline style="width: 100%; height: 400px; margin-top: 10px; object-fit: contain;">
+        <source src="assets/ipad_2.mp4" type="video/mp4">
+        Dein Browser unterstützt das Video-Tag nicht.
+      </video>
       <button id="claim-button" style="display: none;">I Claim</button>
     </div>
   </div>
