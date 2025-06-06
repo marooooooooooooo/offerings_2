@@ -157,3 +157,7 @@ body.hide-left {
   min-width: 4864px !important;
   width: 4864px !important;
 }
+
+#intermediate-page {
+  display: none !important;
+}
