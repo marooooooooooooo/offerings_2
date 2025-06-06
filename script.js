@@ -234,6 +234,7 @@ video.addEventListener('ended', () => {
 
 // Claim-Button gedrückt
 claimButton.addEventListener('click', () => {
+  console.log('Claim button clicked: resetting UI to start screen');
   claimButton.style.display = 'none';
   claimAudio.pause();
   claimAudio.currentTime = 0;
@@ -243,8 +244,24 @@ claimButton.addEventListener('click', () => {
   }
   ws.send(JSON.stringify({ type: 'claim' }));
 
-  // Nach Claim Seite neu laden, um weißen Bildschirm zu vermeiden
-  window.location.reload();
+  // Reset UI to start screen without page reload
+  mainContent.classList.add('hidden');
+  intermediatePage.classList.add('hidden');
+  const inputPage = document.getElementById('input-page');
+  if (inputPage) {
+    inputPage.classList.add('hidden');
+  }
+  startscreen.classList.remove('hidden');
+
+  // Reset and play startscreen video
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    startscreenVideo.pause();
+    startscreenVideo.currentTime = 0;
+    startscreenVideo.muted = true;
+    startscreenVideo.style.display = 'block';
+    startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+  }
 });
 
 // Seite lädt
