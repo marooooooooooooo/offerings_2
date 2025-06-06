@@ -281,7 +281,6 @@ const intermediateVideo = document.getElementById('intermediate-video');
 startButton.addEventListener('click', () => {
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
-  intermediatePage.classList.remove('hidden-flicker');
   intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
 });
 
