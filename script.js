@@ -177,6 +177,49 @@ claimButton.addEventListener('click', () => {
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
 
+// Start Button Event Listener
+startButton.addEventListener('click', () => {
+  startscreen.classList.add('hidden');
+  intermediatePage.classList.remove('hidden');
+  intermediateVideo.classList.remove('hidden');
+  intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
+});
+
+// Intermediate Video Event Listener
+intermediateVideo.addEventListener('ended', () => {
+  intermediatePage.classList.add('hidden');
+  mainContent.classList.remove('hidden');
+  backgroundVideo.play().catch(e => console.warn('Background video playback failed:', e));
+});
+
+// Coin Event Listeners
+coins.forEach(coin => {
+  coin.addEventListener('click', (event) => {
+    mainContent.classList.add('hidden');
+    inputPage.classList.remove('hidden');
+    inputPage.classList.remove('hidden-flicker');
+    const selectedCoin = event.target.dataset.button;
+    console.log(`Coin ${selectedCoin} selected`);
+  });
+});
+
+// Submit Prophecy Event Listener
+submitProphecy.addEventListener('click', () => {
+  const prophecyInput = document.getElementById('prophecy-input');
+  const prophecyText = prophecyInput.value;
+  console.log(`Prophecy: ${prophecyText}`);
+  inputPage.classList.add('hidden');
+  mainContent.classList.remove('hidden');
+});
+
+// Claim Button Event Listener
+claimButton.addEventListener('click', () => {
+  console.log('Claim button clicked');
+  mainContent.classList.add('hidden');
+  startscreen.classList.remove('hidden');
+  startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+});
+
 // Klick auf Münze
 coins.forEach(coin => {
   coin.addEventListener('click', (event) => {
@@ -353,3 +396,34 @@ intermediateVideo.addEventListener('ended', () => {
   mainContent.classList.remove('hidden');
   startScreensaver();
 });
+// ...
+
+// Claim-Button Event Listener
+claimButton.addEventListener('click', () => {
+  console.log('Claim button clicked');
+  mainContent.classList.add('hidden');
+  startscreen.classList.remove('hidden');
+  startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+
+  // Reset and play startscreen video
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    startscreenVideo.pause();
+    startscreenVideo.currentTime = 0;
+    startscreenVideo.muted = true;
+    startscreenVideo.style.display = 'block';
+    startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+  }
+
+  // Clear selected coin and video
+  window.selectedCoin = null;
+  window.selectedVideo = null;
+
+  // Send WebSocket message to reset UI
+  ws.send(JSON.stringify({ type: 'claim' }));
+
+  // Start screensaver
+  startScreensaver();
+});
+
+// ...
