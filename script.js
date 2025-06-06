@@ -259,6 +259,12 @@ claimButton.addEventListener('click', () => {
   screensaverAudio.currentTime = 0;
   claimAudio.pause();
   claimAudio.currentTime = 0;
+
+  // Play startscreen video explicitly
+  const startscreenVideo = document.getElementById('startscreen-video');
+  if (startscreenVideo) {
+    startscreenVideo.play().catch(e => console.warn('Startscreen video playback failed:', e));
+  }
 });
 
 // Seite lädt
