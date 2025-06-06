@@ -125,7 +125,6 @@ function startScreensaver() {
   screensaverAudio.currentTime = 0;
   screensaverAudio.play().catch(e => console.warn('Screensaver-Audio konnte nicht abgespielt werden:', e));
   claimButton.style.display = 'none';
-  chooseText.textContent = 'Select a data offering to proceed';
   coins.forEach(coin => coin.style.visibility = 'visible');
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
