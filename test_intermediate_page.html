@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Test Intermediate Page</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0; height: 100%; width: 100%;
+      display: flex; justify-content: center; align-items: center;
+      background-color: #eee;
+      font-family: sans-serif;
+    }
+    #startscreen, #intermediate-page {
+      width: 600px; height: 400px;
+      position: relative;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+    #intermediate-page {
+      display: none;
+      background-color: #ddd;
+    }
+    button {
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      background-color: #ffcc00;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+  <div id="startscreen">
+    <video id="startscreen-video" autoplay muted loop playsinline>
+      <source src="assets/ipad_1.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <button id="start-button">Start</button>
+  </div>
+
+  <div id="intermediate-page">
+    <video id="intermediate-video" autoplay muted playsinline>
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <script>
+    const startscreen = document.getElementById('startscreen');
+    const startButton = document.getElementById('start-button');
+    const intermediatePage = document.getElementById('intermediate-page');
+    const intermediateVideo = document.getElementById('intermediate-video');
+
+    startButton.addEventListener('click', () => {
+      console.log('Start button clicked');
+      startscreen.style.display = 'none';
+      intermediatePage.style.display = 'flex';
+      intermediateVideo.src = "https://www.dropbox.com/scl/fi/1ssoiwou4pft4t22ar3v8/ipad_2.mp4?rlkey=s2z8mhnof8j1r9c8ew3hzyugy&st=vaza6y7o&dl=1";
+      intermediateVideo.currentTime = 0;
+      intermediateVideo.muted = true;
+      intermediateVideo.play().then(() => {
+        console.log('Intermediate video started playing');
+      }).catch(e => {
+        console.warn('Intermediate video playback failed:', e);
+      });
+    });
+
+    intermediateVideo.addEventListener('ended', () => {
+      console.log('Intermediate video ended');
+      intermediatePage.style.display = 'none';
+      startscreen.style.display = 'flex';
+    });
+  </script>
+</body>
+</html>
