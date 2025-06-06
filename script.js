@@ -218,9 +218,19 @@ window.addEventListener('load', () => {
   window.addEventListener('touchstart', unlockMedia);
 });
 
-// Start-Button gedrückt: Wechsel zum Hauptinhalt
+const intermediatePage = document.getElementById('intermediate-page');
+const intermediateVideo = document.getElementById('intermediate-video');
+
+// Start-Button gedrückt: Wechsel zur Zwischenseite
 startButton.addEventListener('click', () => {
   startscreen.style.display = 'none';
+  intermediatePage.style.display = 'flex';
+  intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
+});
+
+// Wenn das Zwischenseiten-Video endet: Wechsel zum Hauptinhalt
+intermediateVideo.addEventListener('ended', () => {
+  intermediatePage.style.display = 'none';
   mainContent.style.display = 'block';
   startScreensaver();
 });
