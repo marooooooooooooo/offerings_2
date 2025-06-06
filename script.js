@@ -153,17 +153,66 @@ coins.forEach(coin => {
     if (!selectedVideos) return;
     const randomVideo = selectedVideos[Math.floor(Math.random() * selectedVideos.length)];
 
-    // Klick-Sound abspielen und erst nach Ende weitermachen
-    clickSound.currentTime = 0;
-    clickSound.play().catch(e => console.warn('Klick-Sound konnte nicht abgespielt werden:', e));
+    // Store selected coin and video for later use
+    window.selectedCoin = buttonType;
+    window.selectedVideo = randomVideo;
 
-    clickSound.onended = () => {
-      console.log('Click sound ended, sending WebSocket message for coin:', buttonType);
-      const startTime = Date.now() + 1000; // 1 Sekunde Verzögerung
-      ws.send(JSON.stringify({ type: 'coin', coin: buttonType, video: randomVideo, startTime, sender: myClientId }));
-      // Kein setTimeout und kein video.play() hier!
-    };
+    // Show input page and hide main content
+    mainContent.style.display = 'none';
+    const inputPage = document.getElementById('input-page');
+    inputPage.style.display = 'flex';
+
+    // Clear previous input
+    const prophecyInput = document.getElementById('prophecy-input');
+    prophecyInput.value = '';
+
+    // Focus input field
+    prophecyInput.focus();
   });
+});
+
+// Handle submit button on input page
+const submitProphecyButton = document.getElementById('submit-prophecy');
+submitProphecyButton.addEventListener('click', () => {
+  const prophecyInput = document.getElementById('prophecy-input');
+  const inputValue = prophecyInput.value.trim();
+
+  if (inputValue.length === 0) {
+    alert('Please enter your prophecy before proceeding.');
+    prophecyInput.focus();
+    return;
+  }
+
+  // Hide input page
+  const inputPage = document.getElementById('input-page');
+  inputPage.style.display = 'none';
+
+  // Show main content and only the selected coin
+  mainContent.style.display = 'block';
+  coins.forEach(c => {
+    if (c.getAttribute('data-button') !== window.selectedCoin) {
+      c.style.visibility = 'hidden';
+    } else {
+      c.style.visibility = 'visible';
+    }
+  });
+
+  // Send WebSocket message to start prophecy video
+  const startTime = Date.now() + 1000; // 1 second delay
+  ws.send(JSON.stringify({
+    type: 'coin',
+    coin: window.selectedCoin,
+    video: window.selectedVideo,
+    startTime,
+    sender: myClientId
+  }));
+
+  // Optionally, send the prophecy text to server or display it locally
+  ws.send(JSON.stringify({
+    type: 'prophecy',
+    payload: inputValue,
+    sender: myClientId
+  }));
 });
 
 /* Removed rotation class removals and additions as videos are pre-rotated in Dropbox */
