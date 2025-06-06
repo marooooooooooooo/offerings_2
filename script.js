@@ -118,17 +118,13 @@ function startScreensaver() {
   ws.send(JSON.stringify({ type: 'screensaver_start', timestamp: Date.now() }));
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  const startButton = document.getElementById('start-button');
-
-  startButton.addEventListener('click', () => {
-    startscreen.classList.add('hidden');
-    intermediatePage.classList.remove('hidden');
-    intermediateVideo.classList.remove('hidden');
-    intermediateVideo.currentTime = 0;
-    intermediateVideo.muted = true;
-    intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
-  });
+startButton.addEventListener('click', () => {
+  startscreen.classList.add('hidden');
+  intermediatePage.classList.remove('hidden');
+  intermediateVideo.classList.remove('hidden');
+  intermediateVideo.currentTime = 0;
+  intermediateVideo.muted = true;
+  intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
 });
 
 intermediateVideo.addEventListener('ended', () => {
