@@ -177,11 +177,4 @@ body.hide-left {
   transition: transform 0.3s ease;
 }
 
-/* Hidden flicker class to completely hide elements offscreen and prevent flicker */
-.hidden-flicker {
-  position: absolute !important;
-  top: -9999px !important;
-  left: -9999px !important;
-  visibility: hidden !important;
-  opacity: 0 !important;
-}
+/* Removed unused hidden-flicker class */
