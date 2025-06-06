@@ -285,7 +285,7 @@ startButton.addEventListener('click', () => {
 
 // Wenn das Zwischenseiten-Video endet: Wechsel zum Hauptinhalt
 intermediateVideo.addEventListener('ended', () => {
-  intermediatePage.style.display = 'none';
-  mainContent.style.display = 'block';
+  intermediatePage.classList.add('hidden');
+  mainContent.classList.remove('hidden');
   startScreensaver();
 });
