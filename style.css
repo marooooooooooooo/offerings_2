@@ -25,6 +25,33 @@ body {
   box-sizing: border-box;
 }
 
+/* ... (rest of the CSS code) *//* Grundlayout */
+body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  min-width: 4864px; /* 1024 + 3840 */
+  min-height: 2160px; /* Höhe der rechten Seite */
+  background-color: white; /* Weißer Rand rechts */
+  font-family: sans-serif;
+  overflow: auto;
+}
+
+/* Linke Seite (Buttons) */
+.left-side {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1024px;
+  height: 768px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
 /* Removed styles for #startscreen and #start-button as per user request to revert last change */
 
 .choose-text {
