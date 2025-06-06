@@ -25,33 +25,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ... (rest of the CSS code) *//* Grundlayout */
-body {
-  margin: 0;
-  padding: 0;
-  position: relative;
-  min-width: 4864px; /* 1024 + 3840 */
-  min-height: 2160px; /* Höhe der rechten Seite */
-  background-color: white; /* Weißer Rand rechts */
-  font-family: sans-serif;
-  overflow: auto;
-}
-
-/* Linke Seite (Buttons) */
-.left-side {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 1024px;
-  height: 768px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-}
-
 /* Removed styles for #startscreen and #start-button as per user request to revert last change */
 
 .choose-text {
@@ -185,29 +158,18 @@ body.hide-left {
   width: 4864px !important;
 }
 
-/* Style for intermediate video to match start screen video */
-#intermediate-video {
-  position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 2;
-}
-
 .hidden {
   display: none !important;
 }
 
 /* Remove display:none from these IDs to use .hidden class instead */
-/* #intermediate-page {
+#intermediate-page {
   display: none !important;
 }
 
 #input-page {
   display: none !important;
-} */
+}
 
 /* Offscreen class to move elements down by 1000px */
 .offscreen {
