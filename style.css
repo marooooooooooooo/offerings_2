@@ -46,10 +46,14 @@ body {
   height: auto;
   cursor: pointer;
   transition: transform 0.2s;
+  border: 2px solid #ffcc00; /* Yellow border around clickable coin */
+  border-radius: 50%; /* Circular border */
+  box-sizing: border-box;
 }
 
 .coin:hover {
   transform: scale(1.1);
+  border-color: #ffff66; /* Lighter yellow on hover */
 }
 
 /* Rechte Seite (Prophezeiungen) */
