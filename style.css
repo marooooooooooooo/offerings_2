@@ -158,10 +158,13 @@ body.hide-left {
   width: 4864px !important;
 }
 
+.hidden {
+  display: none !important;
+}
+
+/* Remove display:none from these IDs to use .hidden class instead */
 #intermediate-page {
-  display: none;
 }
 
 #input-page {
-  display: none;
 }
