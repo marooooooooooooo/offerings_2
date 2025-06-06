@@ -163,13 +163,13 @@ body.hide-left {
 }
 
 /* Remove display:none from these IDs to use .hidden class instead */
-#intermediate-page {
+/* #intermediate-page {
   display: none !important;
 }
 
 #input-page {
   display: none !important;
-}
+} */
 
 /* Offscreen class to move elements down by 1000px */
 .offscreen {
