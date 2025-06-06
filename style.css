@@ -168,3 +168,9 @@ body.hide-left {
 
 #input-page {
 }
+
+/* Offscreen class to move elements down by 1000px */
+.offscreen {
+  transform: translateY(1000px);
+  transition: transform 0.3s ease;
+}
