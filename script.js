@@ -123,6 +123,7 @@ startButton.addEventListener('click', () => {
   startscreen.classList.add('hidden');
   intermediatePage.classList.remove('hidden');
   intermediateVideo.classList.remove('hidden');
+  intermediateVideo.src = "https://www.dropbox.com/scl/fi/1ssoiwou4pft4t22ar3v8/ipad_2.mp4?rlkey=s2z8mhnof8j1r9c8ew3hzyugy&st=vaza6y7o&dl=1";
   intermediateVideo.currentTime = 0;
   intermediateVideo.muted = true;
   intermediateVideo.play().catch(e => console.warn('Intermediate video playback failed:', e));
